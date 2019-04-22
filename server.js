@@ -35,6 +35,21 @@ var server = app.listen(5005, function () {
  
   var host = server.address().address
   var port = server.address().port
+
+  
  
   console.log("App listening at http://%s:%s", host, port)
 })
+
+const io = require('./socketio.js').init(server);
+  console.log('Test');
+io.on('connection', socket => {
+    console.log('Client Connected');
+})
+
+// console.log('Test');
+
+
+
+// console.log('Test');
+

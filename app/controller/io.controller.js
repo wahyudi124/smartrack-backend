@@ -1,6 +1,9 @@
 const db = require('../config/db.config.js');
 const Profile = db.io_profile;
 const Latest = db.io_latest;
+const TimeSeries = db.io_timeseries;
+
+const io = require('../../socketio');
 
 exports.create = (req, res, next) => {
     Profile.create({
@@ -93,8 +96,12 @@ exports.DashboardControl = (req,res,next) => {
     Latest.update( {  value : req.body.value }, 
              { where: {id_profile: req.params.profileId} }
              ).then(() => {
-             // --> FIRMWARE Connection
+                TimeSeries.create({
+                    value : req.body.value,
+                })
+             io.getIO().emit('message', {id_profile : req.params.profileId, value: req.body.value});
              res.status(200).send("State Change a IO Profile with id = " + id);
              });
+    
 }
   
