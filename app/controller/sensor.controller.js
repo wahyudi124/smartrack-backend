@@ -61,7 +61,7 @@ exports.updateValue = (req,res,next) => {
 
 exports.delete = (req, res,next) => {
     const id = req.params.profileId;
-    Latest.destroy({y4et3ww 5w4
+    Latest.destroy({
         where: { id_profile: id },
     }).then(() => {
         Profile.destroy({
