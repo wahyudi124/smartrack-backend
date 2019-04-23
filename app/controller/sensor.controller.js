@@ -1,6 +1,7 @@
 const db = require('../config/db.config.js');
 const Profile = db.sensor_profile;
 const Latest = db.sensor_latest;
+const io = require('../../socketio');
 
 exports.create = (req, res, next) => {
     Profile.create({
@@ -8,14 +9,14 @@ exports.create = (req, res, next) => {
         type      : req.body.type,
         port      : req.body.port,
         unit      : req.body.unit,
-        sensor_latests: [{  // -> databseName Relation with Profile 
+        sensor_latests: [{  
+                        // -> databseName Relation with Profile 
                         value : null
                         }]
     },
     {
         include : [Latest]
     }
-    
     ).then(Profile => {
         res.send({message : "Done!"})
     })
@@ -43,20 +44,33 @@ exports.update = (req, res,next) => {
              ).then(() => {
              res.status(200).send("updated successfully a Sensor Profile with id = " + id);
              });
-  };
+};
 
-  exports.delete = (req, res,next) => {
+exports.updateValue = (req,res,next) => {
+    try{
+    req.body.newValue.map(data => {
+        Latest.update({ value : data.value },
+                      { where : {id_profile : data.id}})
+    })
+    res.status(200).send('OK');
+    io.getIO().emit('sensor_latest',req.body);
+    } catch (err){
+        res.status(404).send({'message': err});
+    }
+}
+
+exports.delete = (req, res,next) => {
     const id = req.params.profileId;
     Latest.destroy({
-      where: { id_profile: id },
+        where: { id_profile: id },
     }).then(() => {
-      Profile.destroy({
-          where : {id: id},
-      }).then(() =>{
+        Profile.destroy({
+            where : {id: id},
+        }).then(() =>{
         res.status(200).send('deleted successfully a Sensor Profile with id = ' + id);
-      })
+        })
     });
-  };
+};
 
 exports.Dashboard = (req,res,next) => {
     let limit = 8;

@@ -15,4 +15,7 @@ module.exports = function(app){
     //Dashboard sensor Router
     app.get('/api/sensor/dashboard/:page',sensor.Dashboard);
 
+    //Firmware update data
+    app.patch('/api/sensor/firmware',sensor.updateValue);
+
 }

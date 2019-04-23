@@ -15,6 +15,9 @@ module.exports = function(app){
     //Dashboard IO Router
     app.get('/api/io/dashboard/:page',io.Dashboard);
 
-    app.patch('/api/io/dashboard/:profileId', io.DashboardControl)
+    app.patch('/api/io/dashboard/:profileId', io.DashboardControl);
+
+    //Get Monitor IO By Firmware
+    app.get('/api/io/monitorio/',io.findControlProfile);
 
 }

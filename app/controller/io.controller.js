@@ -2,6 +2,8 @@ const db = require('../config/db.config.js');
 const Profile = db.io_profile;
 const Latest = db.io_latest;
 const TimeSeries = db.io_timeseries;
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const io = require('../../socketio');
 
@@ -38,6 +40,30 @@ exports.findById = (req,res,next) => {
     })
 }
 
+
+exports.updateValue = (req,res,next) => {
+    try{
+    req.body.newValueMonitor.map(data => {
+        Latest.update({ value : data.value },
+                      { where : {id_profile : data.id}})
+    })
+    res.status(200).send('OK');
+    io.getIO().emit('io_latest',req.body);
+    } catch (err){
+        res.status(404).send({'message': err});
+    }
+}
+
+exports.findControlProfile = (req,res,next) => {
+    Profile.findAll({
+        where: {[Op.or]: [{type: 'DI'}, {type: 'AI'}]},
+      }).then(data => {
+        res.status(200).json({'result': data});
+      })
+}
+
+
+
 exports.update = (req, res,next) => {
     const id = req.params.profileId;
     Profile.update( {  name      : req.body.name,  
@@ -50,9 +76,9 @@ exports.update = (req, res,next) => {
              ).then(() => {
              res.status(200).send("updated successfully a IO Profile with id = " + id);
              });
-  };
+};
 
-  exports.delete = (req, res,next) => {
+exports.delete = (req, res,next) => {
     const id = req.params.profileId;
     Latest.destroy({
       where: { id_profile: id },
@@ -63,7 +89,7 @@ exports.update = (req, res,next) => {
         res.status(200).send('deleted successfully a IO Profile with id = ' + id);
       })
     });
-  };
+};
 
 exports.Dashboard = (req,res,next) => {
     let limit = 10;
@@ -88,7 +114,6 @@ exports.Dashboard = (req,res,next) => {
             res.status(200).json({'result': data, 'count': data.count, 'totalPages': pages});
         })
     })
-    
 }
 
 exports.DashboardControl = (req,res,next) => {
@@ -99,9 +124,7 @@ exports.DashboardControl = (req,res,next) => {
                 TimeSeries.create({
                     value : req.body.value,
                 })
-             io.getIO().emit('message', {id_profile : req.params.profileId, value: req.body.value});
              res.status(200).send("State Change a IO Profile with id = " + id);
              });
-    
 }
   
