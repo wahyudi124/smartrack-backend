@@ -18,6 +18,6 @@ module.exports = function(app){
     app.patch('/api/asset/dashboard/:profileId', asset.DashboardControl);
 
     //Get Monitor asset By Firmware
-    app.get('/api/asset/monitorio/',asset.findControlProfile);
+//     app.get('/api/asset/monitorio/',asset.findControlProfile);
 
 }
