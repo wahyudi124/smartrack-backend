@@ -56,4 +56,14 @@ db.rectifier_latest.belongsTo(db.rectifier_profile, {foreignKey:'id_profile',tar
 db.rectifier_profile.hasMany(db.rectifier_timeseries, {foreignKey:'id_profile',sourceKey:'id'});
 db.rectifier_timeseries.belongsTo(db.rectifier_profile, {foreignKey:'id_profile',targetKey: 'id'})
 
+
+//Auth Model
+
+db.user = require('../model/auth/user.model.js')(sequelize, Sequelize);
+db.role = require('../model/auth/role.model.js')(sequelize, Sequelize);
+ 
+db.role.belongsToMany(db.user, { through: 'user_roles', foreignKey: 'roleId', otherKey: 'userId'});
+db.user.belongsToMany(db.role, { through: 'user_roles', foreignKey: 'userId', otherKey: 'roleId'});
+
+
 module.exports = db;
