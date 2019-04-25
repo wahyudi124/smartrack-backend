@@ -4,7 +4,7 @@ const Latest = db.io_latest;
 const TimeSeries = db.io_timeseries;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-
+const Log = db.io_timeseries;
 const io = require('../../socketio');
 
 exports.create = (req, res, next) => {
@@ -46,6 +46,9 @@ exports.updateValue = (req,res,next) => {
     req.body.newValueMonitor.map(data => {
         Latest.update({ value : data.value },
                       { where : {id_profile : data.id}})
+    })
+    Log.create({
+        data : JSON.stringify(req.body.newValue),
     })
     res.status(200).send('OK');
     io.getIO().emit('io_latest',req.body);

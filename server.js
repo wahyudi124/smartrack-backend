@@ -1,8 +1,9 @@
 var express = require('express');
+var cors = require('cors');
 var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json())
-
+app.use(cors())
 // app.use((req,res,next)=> {
 //   const err = new Error("Not Found");
 //   err.status = 404;
@@ -29,6 +30,7 @@ const db = require('./app/config/db.config.js');
 
 require('./app/router/io.router.js')(app);
 require('./app/router/sensor.router.js')(app);
+require('./app/router/rectifier.router.js')(app);
  
 // Create a Server
 var server = app.listen(5005, function () {

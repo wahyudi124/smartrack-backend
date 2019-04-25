@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Log = sequelize.define('io_timeseries', {
+    const Log = sequelize.define('sensor_timeseries', {
         timestamp : {
             type: Sequelize.DATE, 
             defaultValue: Sequelize.NOW 
@@ -12,6 +12,5 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false,  // I do want timestamps here
     }
     )
-
     return Log;
 }
