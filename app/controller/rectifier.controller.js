@@ -21,7 +21,7 @@ exports.create = (req, res, next) => {
         installed_by        : req.body.installed_by,
         installation_date   : req.body.installation_date
     }).then(data => {
-        Promise.all(req.body.available_data.map(item => {
+        Promise.all(req.body.available_data.available_data.map(item => {
             Latest.create({
                 var_name    : item.var_name,
                 id_profile  : data.id,
@@ -32,6 +32,29 @@ exports.create = (req, res, next) => {
         }))
         .then(res.send("ok"));
     })
+}
+
+
+exports.updatelatest = (req,res,next) => {
+
+    Promise.all(req.body.newValue.map(data => {
+        Latest.update({value : data.value},
+        {where : {id_profile : req.params.profileId,
+                 var_name : data.var_name
+                }
+        })}))
+        .then( () => {
+            io.getIO().emit("rectifier_data",req.body.newValue)
+            Log.create({
+                id_profile : req.params.id_profile,
+                data : JSON.stringify(req.body.newValue)
+            }).then( () => {
+                res.status(200).send('Sucessfull Update And Log');
+            })
+        })
+        .catch( err => {
+            res.status(404).send({'message': err});
+        })
 }
 
 exports.getAllManufaturer = (req,res,next) => {
@@ -74,6 +97,18 @@ exports.getDataConfig = (req,res,next) => {
     ).then(data =>{
         //console.log(data);
         res.status(200).send(data.available_data);
+    })
+}
+
+
+exports.addLibrary = (req,res,next) => {
+    Library.create({
+        manufacturer : req.body.manufacturer,
+        part_number : req.body.part_number,
+        protocol : req.body.protocol,
+        available_data : JSON.stringify(req.body.available_data)
+    }).then(data => {
+        res.status(200).send({"message" : "Library Create"});
     })
 }
 

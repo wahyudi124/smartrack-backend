@@ -14,10 +14,10 @@ module.exports = (sequelize, Sequelize) => {
             type : Sequelize.STRING
         },
         read_this : {
-            type : Sequelize.BOOLEAN
+            type : Sequelize.INTEGER
         },
         write_this : {
-            type : Sequelize.BOOLEAN
+            type : Sequelize.INTEGER
         }
     },
     {

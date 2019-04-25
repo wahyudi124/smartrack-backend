@@ -4,7 +4,7 @@ module.exports = function(app){
     // // Profile rectifier Router
     app.post('/api/rectifier/profile',rectifier.create);
 
-    // app.get('/api/rectifier/profile',rectifier.findAll);
+    app.get('/api/rectifier/profile',rectifier.findAll);
 
     app.get('/api/rectifier/profile/:profileId',rectifier.findById);
 
@@ -18,7 +18,9 @@ module.exports = function(app){
     // app.patch('/api/rectifier/dashboard/:profileId', rectifier.DashboardControl);
 
     // //Get Monitor rectifier By Firmware
-    // app.get('/api/rectifier/monitorrectifier/',rectifier.findControlProfile);
+    app.patch('/api/rectifier/updatevalue/:profileId',rectifier.updatelatest);
+
+    app.post('/api/rectifier/library', rectifier.addLibrary);
 
     app.get('/api/rectifier/dataconfig',rectifier.getDataConfig);
 
