@@ -30,11 +30,8 @@ const db = require('./app/config/db.config.js');
 
 require('./app/router/io.router.js')(app);
 require('./app/router/sensor.router.js')(app);
-<<<<<<< HEAD
 require('./app/router/rectifier.router.js')(app);
-=======
 require('./app/router/auth.router.js')(app);
->>>>>>> ddd82a1ae222f99c696feb518039077a32ae4f0b
  
 // Create a Server
 var server = app.listen(5005, function () {
