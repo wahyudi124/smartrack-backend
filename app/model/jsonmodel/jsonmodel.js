@@ -20,7 +20,7 @@ module.exports = {
 
     get : () => {
         if(!datas) {
-            throw new Error('data not set');
+            throw new Error('data not Set');
         }
         return datas;
     } 
