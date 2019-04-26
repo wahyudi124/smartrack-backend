@@ -27,8 +27,24 @@ verifyToken = (req, res, next) => {
 
 isAdmin = (req, res, next) => {
 	let token = req.headers['x-access-token'];
-	
-	User.findById(req.userId)
+	yas = req.userId;
+	console.log(yas);
+	// User.findByPK(req.userId)
+	// 	.then(user => {
+	// 		user.getRoles().then(roles => {
+	// 			for(let i=0; i<roles.length; i++){
+	// 				console.log(roles[i].name);
+	// 				if(roles[i].name.toUpperCase() === "ADMIN"){
+	// 					next();
+	// 					return;
+	// 				}
+	// 			}
+				
+	// 			res.status(403).send("Require Admin Role!");
+	// 			return;
+	// 		})
+	// 	})
+	User.findByPk(yas)
 		.then(user => {
 			user.getRoles().then(roles => {
 				for(let i=0; i<roles.length; i++){
@@ -38,17 +54,17 @@ isAdmin = (req, res, next) => {
 						return;
 					}
 				}
-				
 				res.status(403).send("Require Admin Role!");
 				return;
 			})
 		})
+	
 }
 
 isPmOrAdmin = (req, res, next) => {
 	let token = req.headers['x-access-token'];
 	
-	User.findById(req.userId)
+	User.findByPk(req.userId)
 		.then(user => {
 			user.getRoles().then(roles => {
 				for(let i=0; i<roles.length; i++){					

@@ -41,5 +41,12 @@ db.sensor_latest.belongsTo(db.sensor_profile, {foreignKey:'id_profile',targetKey
 //db.pdu_profile = require('../model/pdu/pdu_profile.model.js')(sequelize,Sequelize);
 //db.pdu_latest = require('../model/pdu/pdu_latest.model.js')(sequelize,Sequelize);
  
+
+// auth
+db.user = require('../model/auth/user.model.js')(sequelize, Sequelize);
+db.role = require('../model/auth/role.model.js')(sequelize, Sequelize);
  
+db.role.belongsToMany(db.user, { through: 'user_roles', foreignKey: 'roleId', otherKey: 'userId'});
+db.user.belongsToMany(db.role, { through: 'user_roles', foreignKey: 'userId', otherKey: 'roleId'});
+
 module.exports = db;

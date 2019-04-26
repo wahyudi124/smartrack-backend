@@ -3,6 +3,16 @@ var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json())
 
+
+const swaggerUI = require('swagger-ui-express');
+const swagerDocument = require('./swagger.json');
+
+var options = {
+	explorer : true
+};
+
+app.use('/api/v1', swaggerUI.serve, swaggerUI.setup(swagerDocument, options));
+
 // app.use((req,res,next)=> {
 //   const err = new Error("Not Found");
 //   err.status = 404;
