@@ -3,37 +3,44 @@ const Profile = db.rectifier_profile;
 const Latest = db.rectifier_latest;
 const Log = db.rectifier_timeseries;
 const Library = db.rectifier_library;
+const Protocol = db.rectifier_protocol;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const io = require('../../socketio');
+const jsonmodel = require('../model/jsonmodel/jsonmodel.js');
 
-
-
+//OK
 exports.create = (req, res, next) => {
+   
   Profile.create({
         name                : req.body.name,  
         manufacturer        : req.body.manufacturer,
         part_number         : req.body.part_number,
         serial_number       : req.body.serial_number,
-        protocol            : req.body.protocol,
         supplier            : req.body.supplier,
         supplier_contact    : req.body.supplier_contact,
         installed_by        : req.body.installed_by,
-        installation_date   : req.body.installation_date
-    }).then(data => {
-        Promise.all(req.body.available_data.available_data.map(item => {
-            Latest.create({
-                var_name    : item.var_name,
-                id_profile  : data.id,
-                unit        : item.unit,
-                read_this   : item.read,
-                write_this  : item.write,
-            })
-        }))
-        .then(res.send("ok"));
-    })
+        installation_date   : req.body.installation_date,
+        rectifier_protocols  : [{
+            protocolSetting : JSON.stringify(req.body.protocol),
+                               }]
+                },
+                {
+                    include : [Protocol]
+                }
+        ).then(data => {
+            Promise.all(req.body.available_data.map(item => {
+                Latest.create({
+                    var_name    : item.var_name,
+                    id_profile  : data.id,
+                    unit        : item.unit,
+                    read_this   : item.read,
+                    write_this  : item.write,
+                })
+            }))
+            .then(res.send("Rectifier Profile Create"));
+        })
 }
-
 
 exports.updatelatest = (req,res,next) => {
 
@@ -100,7 +107,6 @@ exports.getDataConfig = (req,res,next) => {
     })
 }
 
-
 exports.addLibrary = (req,res,next) => {
     Library.create({
         manufacturer : req.body.manufacturer,
@@ -119,20 +125,19 @@ exports.findAll = (req,res,next) => {
 }
 
 exports.findById = (req,res,next) => {
-    // Profile.findByPk(req.params.profileId).then(data => {
-    //     res.send(data);
-    // })
-
-    Profile.findOne(
-        {include : [{
-            model : Latest,
-            attributes : ['var_name','unit','read_this','write_this'],
-            where : {id_profile:req.params.profileId},
-        }]},
-        {where : {id : req.params.profileId}},
-        ).then(data => {
-            res.status(200).send(data);
+    var id = req.params.profileId;
+    Profile.findOne({where : {id : id}}).then(profiles => {
+        var profile = profiles;
+        Protocol.findOne( {attributes : ['protocolSetting']}, {where : {id_profile : id}}).then(protocols => {
+            var protocol = JSON.parse(protocols.protocolSetting);
+            Latest.findAll({attributes : ['var_name','unit','read_this','write_this']},{where : {id_profile : id}}).then(latests => {
+                jsonmodel.set(profile,protocol,latests);
+                res.send(jsonmodel.get())
         })
+    })
+    
+    })
+
 }
 
 exports.delete = (req, res,next) => {
@@ -140,10 +145,14 @@ exports.delete = (req, res,next) => {
     Latest.destroy({
       where: { id_profile: id },
     }).then(() => {
-      Profile.destroy({
-          where : {id: id},
+      Protocol.destroy({
+        where : {id_profile :  id},  
       }).then(() =>{
-        res.status(200).send('deleted successfully a IO Profile with id = ' + id);
+        Profile.destroy({
+            where : {id: id},
+        }).then(() =>{
+          res.status(200).send('deleted successfully a IO Profile with id = ' + id);
+        })
       })
     });
 };
@@ -154,28 +163,29 @@ exports.update = (req, res,next) => {
             manufacturer        : req.body.manufacturer,
             part_number         : req.body.part_number,
             serial_number       : req.body.serial_number,
-            protocol            : req.body.protocol,
             supplier            : req.body.supplier,
             supplier_contact    : req.body.supplier_contact,
             installed_by        : req.body.installed_by,
             installation_date   : req.body.installation_date },
         { where: {id: req.params.profileId} }
              ).then(() => {
-                Latest.destroy({
-                    where: { id_profile: req.params.profileId },
-                  })
-                .then( () => {
-                Promise.all(req.body.rectifier_latest.map(item => {
-                    Latest.create({
-                        var_name    : item.var_name,
-                        id_profile  : req.params.profileId,
-                        unit        : item.unit,
-                        read_this   : item.read,
-                        write_this  : item.write,
+                Protocol.update({protocolSetting : JSON.stringify(req.body.protocol)}, {where : {id_profile : req.params.profileId}})
+                .then(()=>{
+                    Latest.destroy({
+                        where: { id_profile: req.params.profileId },
+                      })
+                    .then( () => {
+                    Promise.all(req.body.available_data.map(item => {
+                        Latest.create({
+                            var_name    : item.var_name,
+                            id_profile  : req.params.profileId,
+                            unit        : item.unit,
+                            read_this   : item.read,
+                            write_this  : item.write,
+                        })
+                    })).then(res.send("Data Uptodate"));
                     })
-                })).then(res.send("ok"));
                 })
-                
              });
 };
 

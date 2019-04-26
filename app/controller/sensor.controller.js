@@ -1,25 +1,51 @@
 const db = require('../config/db.config.js');
 const Profile = db.sensor_profile;
 const Latest = db.sensor_latest;
+const Library = db.sensor_library;
 const Log = db.sensor_timeseries;
 const io = require('../../socketio');
 
+
+
+exports.getSensorType = (req,res,next) => {
+    Library.findAll({attributes : ['type']})
+    .then(data =>{
+        res.send(data);
+    })
+}
+
 exports.create = (req, res, next) => {
+
+    Library.findOne({attributes : ['avaiable_data']}, {where : {type : req.body.type}})
+    .then(() => {
     Profile.create({
-        name      : req.body.name,  
-        type      : req.body.type,
-        port      : req.body.port,
-        unit      : req.body.unit,
-        sensor_latests: [{  
-                        // -> databseName Relation with Profile 
-                        value : null
-                        }]
-    },
-    {
-        include : [Latest]
+        name        : req.body.name,  
+        type        : req.body.type,
+        address     : req.body.address,
+        AES128_key      : req.body.AES128_key,
     }
-    ).then(Profile => {
-        res.send({message : "Done!"})
+    ).then(data => {
+        var id = data.id
+        Library.findOne({attributes : ['avaiable_data']}, {where : {type : req.body.type}})
+        .then(data => {
+            var datas = JSON.parse(data.avaiable_data);
+            Promise.all(datas.available_data.map( item =>{
+                Latest.create({
+                    var_name : item.var_name,
+                    id_profile : id,
+                    unit :  item.unit
+                }).then(() =>{
+                    res.send("Sensor Added");
+                })
+            }))
+        })
+        .catch( err =>{
+            res.send("Library not Found")
+        })
+    })
+    })
+    .catch(()=>{
+        res.send("Library not Found")
     })
 }
 
@@ -38,13 +64,39 @@ exports.findById = (req,res,next) => {
 exports.update = (req, res,next) => {
     const id = req.params.profileId;
     Profile.update( {  name      : req.body.name,  
-                        type      : req.body.type,
-                        port      : req.body.port,
-                        unit      : req.body.unit }, 
-             { where: {id: req.params.profileId} }
-             ).then(() => {
-             res.status(200).send("updated successfully a Sensor Profile with id = " + id);
-             });
+        type      : req.body.type,
+        port      : req.body.port,
+        unit      : req.body.unit }, 
+    { where: {id: req.params.profileId} }
+    ).then(() => {
+        Profile.findOne({attributes : ['type']}, {where : {id : id}})
+        .then(data => {
+            if(data.type !== req.body.type){
+                Latest.destroy({where : {id_profile : id}})
+                .then(()=>{
+                    Library.findOne({attributes : ['avaiable_data']}, {where : {type : req.body.type}})
+                    .then(data => {
+                        var datas = JSON.parse(data.avaiable_data);
+                        Promise.all(datas.available_data.map( item =>{
+                            Latest.create({
+                                var_name : item.var_name,
+                                id_profile : id,
+                                unit :  item.unit
+                            }).then(() =>{
+                                res.send("Sensor Update");
+                            })
+                        }))
+                    })
+                    .catch(()=>{
+                        res.send("Library Not Found");
+                    })
+                })
+            }
+            else {
+                res.send("Sensor Update");
+            }
+        })
+    })
 };
 
 exports.updateValue = (req,res,next) => {

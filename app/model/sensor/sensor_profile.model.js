@@ -6,10 +6,10 @@ module.exports = (sequelize, Sequelize) => {
         type : {
             type: Sequelize.STRING
         },
-        port : {
+        address : {
             type: Sequelize.STRING
         },
-        unit : {
+        AES128_key : {
             type: Sequelize.STRING
         },
     },
