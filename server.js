@@ -1,4 +1,5 @@
 var express = require('express');
+var cors = require('cors');
 var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json())
@@ -39,6 +40,7 @@ const db = require('./app/config/db.config.js');
 
 require('./app/router/io.router.js')(app);
 require('./app/router/sensor.router.js')(app);
+require('./app/router/rectifier.router.js')(app);
 require('./app/router/auth.router.js')(app);
  
 // Create a Server

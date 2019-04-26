@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Log = sequelize.define('io_timeseries', {
+    const Log = sequelize.define('rectifier_timeseries', {
         timestamp : {
             type: Sequelize.DATE, 
             defaultValue: Sequelize.NOW 

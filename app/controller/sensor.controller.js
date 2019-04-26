@@ -1,6 +1,7 @@
 const db = require('../config/db.config.js');
 const Profile = db.sensor_profile;
 const Latest = db.sensor_latest;
+const Log = db.sensor_timeseries;
 const io = require('../../socketio');
 
 exports.create = (req, res, next) => {
@@ -51,6 +52,9 @@ exports.updateValue = (req,res,next) => {
     req.body.newValue.map(data => {
         Latest.update({ value : data.value },
                       { where : {id_profile : data.id}})
+    })
+    Log.create({
+          data : JSON.stringify(req.body.newValue),
     })
     res.status(200).send('OK');
     io.getIO().emit('sensor_latest',req.body);
