@@ -40,7 +40,6 @@ exports.findById = (req,res,next) => {
     })
 }
 
-
 exports.updateValue = (req,res,next) => {
     try{
     req.body.newValueMonitor.map(data => {
@@ -64,8 +63,6 @@ exports.findControlProfile = (req,res,next) => {
         res.status(200).json({'result': data});
       })
 }
-
-
 
 exports.update = (req, res,next) => {
     const id = req.params.profileId;

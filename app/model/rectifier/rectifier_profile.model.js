@@ -12,9 +12,6 @@ module.exports = (sequelize, Sequelize) => {
         serial_number : {
             type: Sequelize.STRING
         },
-        protocol : {
-            type: Sequelize.TEXT('long')
-        },
         supplier : {
             type: Sequelize.STRING
         },
