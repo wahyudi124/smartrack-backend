@@ -123,7 +123,7 @@ exports.getDataConfig = (req,res,next) => {
         }},
     ).then(data =>{
         //console.log(data);
-        res.status(200).send(data.available_data);
+        res.status(200).send(JSON.parse(data.available_data));
     })
 }
 
