@@ -24,9 +24,9 @@ module.exports = function(app){
 
     app.get('/api/battery/dataconfig',battery.getDataConfig);
 
-    app.get('/api/battery/library/manufacture',battery.getAllManufaturer);
+    app.get('/api/battery/library/manufacturer',battery.getAllManufaturer);
 
     app.get('/api/battery/library/partnumber/:manufacturerName',battery.getAllPartNumber);
 
-    app.get('/api/battery/library/protocol/:manufacturerName/:partnumber',battery.getAvaiableProtocol)
+    app.get('/api/battery/library/protocol/:manufacturer/:part_number',battery.getAvaiableProtocol)
 }

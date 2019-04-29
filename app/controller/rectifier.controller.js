@@ -1,9 +1,9 @@
 const db = require('../config/db.config.js');
-const Profile = db.ups_profile;
-const Latest = db.ups_latest;
-const Log = db.ups_timeseries;
-const Library = db.ups_library;
-const Protocol = db.ups_protocol;
+const Profile = db.rectifier_profile;
+const Latest = db.rectifier_latest;
+const Log = db.rectifier_timeseries;
+const Library = db.rectifier_library;
+const Protocol = db.rectifier_protocol;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const io = require('../../socketio');
@@ -38,7 +38,7 @@ exports.create = (req, res, next) => {
                     write_this  : item.write,
                 })
             }))
-            .then(res.send("Rectifier Profile Create"));
+            .then(res.send("Rectifrectifier Profile Create"));
         })
 }
 
@@ -68,7 +68,12 @@ exports.getAllManufaturer = (req,res,next) => {
     Library.findAll({
         attributes : ['manufacturer']}
         ).then(data => {
-            res.status(200).send(data);
+            var dataArray = [];
+            data.map( data =>{
+                if(isInArray(data.manufacturer,dataArray) == false){
+                   dataArray.push(data.manufacturer);
+                }})
+            res.status(200).send({"manufacturer" : dataArray});
         })
 }
 
@@ -77,9 +82,18 @@ exports.getAllPartNumber = (req,res,next) => {
         {attributes : ['part_number'],
         where : {manufacturer : req.params.manufacturerName}},
         ).then(data => {
-            res.status(200).send(data);
+            var dataArray = [];
+            data.map( data =>{
+                if(isInArray(data.part_number,dataArray) == false){
+                   dataArray.push(data.part_number);
+                }})
+            res.status(200).send({"part_number" : dataArray});
         })
 }
+
+function isInArray(value, array) {
+    return array.indexOf(value) > -1;
+  }
 
 exports.getAvaiableProtocol = (req,res,next) => {
     Library.findAll(
@@ -89,7 +103,12 @@ exports.getAvaiableProtocol = (req,res,next) => {
             part_number : req.params.part_number,}},
         
         ).then(data => {
-            res.status(200).send(data);
+            var dataArray = [];
+            data.map( data =>{
+                if(isInArray(data.protocol,dataArray) == false){
+                   dataArray.push(data.protocol);
+                }})
+            res.status(200).send({"protocol" : dataArray});
         })
 }
 
@@ -103,7 +122,7 @@ exports.getDataConfig = (req,res,next) => {
         }},
     ).then(data =>{
         //console.log(data);
-        res.status(200).send(data.available_data);
+        res.status(200).send(JSON.parse(data.available_data));
     })
 }
 

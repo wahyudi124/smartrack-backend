@@ -24,9 +24,9 @@ module.exports = function(app){
 
     app.get('/api/rectifier/dataconfig',rectifier.getDataConfig);
 
-    app.get('/api/rectifier/library/manufacture',rectifier.getAllManufaturer);
+    app.get('/api/rectifier/library/manufacturer',rectifier.getAllManufaturer);
 
     app.get('/api/rectifier/library/partnumber/:manufacturerName',rectifier.getAllPartNumber);
 
-    app.get('/api/rectifier/library/protocol/:manufacturerName/:partnumber',rectifier.getAvaiableProtocol);
+    app.get('/api/rectifier/library/protocol/:manufacturer/:part_number',rectifier.getAvaiableProtocol)
 }
