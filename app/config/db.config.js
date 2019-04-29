@@ -98,7 +98,7 @@ db.aircond_protocol.belongsTo(db.aircond_profile, {foreignKey:'id_profile',targe
 //aircond model
 db.pdu_profile = require('../model/pdu/pdu_profile.model.js')(sequelize,Sequelize)
 db.pdu_latest  = require('../model/pdu/pdu_latest.model.js') (sequelize,Sequelize)
-db.pdu_library = require('../model/aircond/pdu_library.model.js')(sequelize,Sequelize)
+db.pdu_library = require('../model/pdu/pdu_library.model.js')(sequelize,Sequelize)
 db.pdu_timeseries = require('../model/pdu/pdu_timeseries.model')(sequelize,Sequelize)
 db.pdu_protocol = require('../model/pdu/pdu_protocol.model.js')(sequelize,Sequelize)
 db.pdu_profile.hasMany(db.pdu_latest, {foreignKey:'id_profile',sourceKey:'id'});

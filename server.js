@@ -35,6 +35,7 @@ require('./app/router/auth.router.js')(app);
 require('./app/router/ups.router.js')(app)
 require('./app/router/aircond.router.js')(app);
 require('./app/router/battery.router.js')(app)
+require('./app/router/pdu.router.js')(app)
 
  
 // Create a Server

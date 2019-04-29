@@ -1,13 +1,13 @@
 const db = require('../config/db.config.js');
-const Profile = db.ups_profile;
-const Latest = db.ups_latest;
-const Log = db.ups_timeseries;
-const Library = db.ups_library;
-const Protocol = db.ups_protocol;
+const Profile = db.pdu_profile;
+const Latest = db.pdu_latest;
+const Log = db.pdu_timeseries;
+const Library = db.pdu_library;
+const Protocol = db.pdu_protocol;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const io = require('../../socketio');
-const jsonmodel = require('../model/ups/jsonmodel.js');
+const jsonmodel = require('../model/pdu/jsonmodel.js');
 
 //OK
 exports.create = (req, res, next) => {
