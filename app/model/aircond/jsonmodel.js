@@ -13,7 +13,7 @@ module.exports = {
             installed_by : profile.installed_by,
             installation_date : profile.installation_date,
             protocol : protocol,
-            avaiable_data : availabledata
+            available_data : availabledata
         }
         return datas;
     },

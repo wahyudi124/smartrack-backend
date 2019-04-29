@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Latest = sequelize.define('pdu_latest', {
+    const Latest = sequelize.define('battery_latest', {
         timestamp : {
             type: Sequelize.DATE, 
             defaultValue: Sequelize.NOW 

@@ -54,6 +54,59 @@ db.rectifier_profile.hasMany(db.rectifier_protocol,{foreignKey:'id_profile',sour
 db.rectifier_protocol.belongsTo(db.rectifier_profile, {foreignKey:'id_profile',targetKey: 'id'})
 
 
+//ups model
+db.ups_profile = require('../model/ups/ups_profile.model.js')(sequelize,Sequelize)
+db.ups_latest  = require('../model/ups/ups_latest.model.js') (sequelize,Sequelize)
+db.ups_library = require('../model/ups/ups_library.model.js')(sequelize,Sequelize)
+db.ups_timeseries = require('../model/ups/ups_timeseries.model')(sequelize,Sequelize)
+db.ups_protocol = require('../model/ups/ups_protocol.model.js')(sequelize,Sequelize)
+db.ups_profile.hasMany(db.ups_latest, {foreignKey:'id_profile',sourceKey:'id'});
+db.ups_latest.belongsTo(db.ups_profile, {foreignKey:'id_profile',targetKey: 'id'});
+db.ups_profile.hasMany(db.ups_timeseries, {foreignKey:'id_profile',sourceKey:'id'});
+db.ups_timeseries.belongsTo(db.ups_profile, {foreignKey:'id_profile',targetKey: 'id'})
+db.ups_profile.hasMany(db.ups_protocol,{foreignKey:'id_profile',sourceKey:'id'})
+db.ups_protocol.belongsTo(db.ups_profile, {foreignKey:'id_profile',targetKey: 'id'})
+
+
+//battery model
+db.battery_profile = require('../model/battery/battery_profile.model.js')(sequelize,Sequelize)
+db.battery_latest  = require('../model/battery/battery_latest.model.js') (sequelize,Sequelize)
+db.battery_library = require('../model/battery/battery_library.model.js')(sequelize,Sequelize)
+db.battery_timeseries = require('../model/battery/battery_timeseries.model')(sequelize,Sequelize)
+db.battery_protocol = require('../model/battery/battery_protocol.model.js')(sequelize,Sequelize)
+db.battery_profile.hasMany(db.battery_latest, {foreignKey:'id_profile',sourceKey:'id'});
+db.battery_latest.belongsTo(db.battery_profile, {foreignKey:'id_profile',targetKey: 'id'});
+db.battery_profile.hasMany(db.battery_timeseries, {foreignKey:'id_profile',sourceKey:'id'});
+db.battery_timeseries.belongsTo(db.battery_profile, {foreignKey:'id_profile',targetKey: 'id'})
+db.battery_profile.hasMany(db.battery_protocol,{foreignKey:'id_profile',sourceKey:'id'})
+db.battery_protocol.belongsTo(db.battery_profile, {foreignKey:'id_profile',targetKey: 'id'})
+
+
+//aircond model
+db.aircond_profile = require('../model/aircond/aircond_profile.model.js')(sequelize,Sequelize)
+db.aircond_latest  = require('../model/aircond/aircond_latest.model.js') (sequelize,Sequelize)
+db.aircond_library = require('../model/aircond/aircond_library.model.js')(sequelize,Sequelize)
+db.aircond_timeseries = require('../model/aircond/aircond_timeseries.model')(sequelize,Sequelize)
+db.aircond_protocol = require('../model/aircond/aircond_protocol.model.js')(sequelize,Sequelize)
+db.aircond_profile.hasMany(db.aircond_latest, {foreignKey:'id_profile',sourceKey:'id'});
+db.aircond_latest.belongsTo(db.aircond_profile, {foreignKey:'id_profile',targetKey: 'id'});
+db.aircond_profile.hasMany(db.aircond_timeseries, {foreignKey:'id_profile',sourceKey:'id'});
+db.aircond_timeseries.belongsTo(db.aircond_profile, {foreignKey:'id_profile',targetKey: 'id'})
+db.aircond_profile.hasMany(db.aircond_protocol,{foreignKey:'id_profile',sourceKey:'id'})
+db.aircond_protocol.belongsTo(db.aircond_profile, {foreignKey:'id_profile',targetKey: 'id'})
+
+//aircond model
+db.pdu_profile = require('../model/pdu/pdu_profile.model.js')(sequelize,Sequelize)
+db.pdu_latest  = require('../model/pdu/pdu_latest.model.js') (sequelize,Sequelize)
+db.pdu_library = require('../model/aircond/pdu_library.model.js')(sequelize,Sequelize)
+db.pdu_timeseries = require('../model/pdu/pdu_timeseries.model')(sequelize,Sequelize)
+db.pdu_protocol = require('../model/pdu/pdu_protocol.model.js')(sequelize,Sequelize)
+db.pdu_profile.hasMany(db.pdu_latest, {foreignKey:'id_profile',sourceKey:'id'});
+db.pdu_latest.belongsTo(db.pdu_profile, {foreignKey:'id_profile',targetKey: 'id'});
+db.pdu_profile.hasMany(db.pdu_timeseries, {foreignKey:'id_profile',sourceKey:'id'});
+db.pdu_timeseries.belongsTo(db.pdu_profile, {foreignKey:'id_profile',targetKey: 'id'})
+db.pdu_profile.hasMany(db.pdu_protocol,{foreignKey:'id_profile',sourceKey:'id'})
+db.pdu_protocol.belongsTo(db.pdu_profile, {foreignKey:'id_profile',targetKey: 'id'})
 
 
 //Auth Model

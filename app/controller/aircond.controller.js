@@ -7,7 +7,7 @@ const Protocol = db.ups_protocol;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const io = require('../../socketio');
-const jsonmodel = require('../model/rectifier/jsonmodel.js');
+const jsonmodel = require('../model/aircond/jsonmodel.js');
 
 //OK
 exports.create = (req, res, next) => {
@@ -21,7 +21,7 @@ exports.create = (req, res, next) => {
         supplier_contact    : req.body.supplier_contact,
         installed_by        : req.body.installed_by,
         installation_date   : req.body.installation_date,
-        rectifier_protocols  : [{
+        aircond_protocols  : [{
             protocolSetting : JSON.stringify(req.body.protocol),
                                }]
                 },
@@ -38,7 +38,7 @@ exports.create = (req, res, next) => {
                     write_this  : item.write,
                 })
             }))
-            .then(res.send("Rectifier Profile Create"));
+            .then(res.send("Aircond Profile Create"));
         })
 }
 

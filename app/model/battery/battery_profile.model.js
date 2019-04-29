@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Profile = sequelize.define('ups_profile', {
+    const Profile = sequelize.define('battery_profile', {
         name : {
             type: Sequelize.STRING
         },

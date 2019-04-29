@@ -42,6 +42,10 @@ require('./app/router/io.router.js')(app);
 require('./app/router/sensor.router.js')(app);
 require('./app/router/rectifier.router.js')(app);
 require('./app/router/auth.router.js')(app);
+require('./app/router/ups.router.js')(app)
+require('./app/router/aircond.router.js')(app);
+require('./app/router/battery.router.js')(app)
+
  
 // Create a Server
 var server = app.listen(5005, function () {
