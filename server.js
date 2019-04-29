@@ -2,8 +2,18 @@ var express = require('express');
 var cors = require('cors');
 var app = express();
 var bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(cors());
+app.use(bodyParser.json())
+
+
+const swaggerUI = require('swagger-ui-express');
+const swagerDocument = require('./swagger.json');
+
+var options = {
+	explorer : true
+};
+
+app.use('/api/v1', swaggerUI.serve, swaggerUI.setup(swagerDocument, options));
+
 // app.use((req,res,next)=> {
 //   const err = new Error("Not Found");
 //   err.status = 404;
@@ -35,8 +45,7 @@ require('./app/router/auth.router.js')(app);
 require('./app/router/ups.router.js')(app)
 require('./app/router/aircond.router.js')(app);
 require('./app/router/battery.router.js')(app)
-require('./app/router/pdu.router.js')(app)
-
+require('./app/router/comm.router')(app);
  
 // Create a Server
 var server = app.listen(5005, function () {

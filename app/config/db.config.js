@@ -113,9 +113,15 @@ db.pdu_protocol.belongsTo(db.pdu_profile, {foreignKey:'id_profile',targetKey: 'i
 
 db.user = require('../model/auth/user.model.js')(sequelize, Sequelize);
 db.role = require('../model/auth/role.model.js')(sequelize, Sequelize);
+
  
 db.role.belongsToMany(db.user, { through: 'user_roles', foreignKey: 'roleId', otherKey: 'userId'});
 db.user.belongsToMany(db.role, { through: 'user_roles', foreignKey: 'userId', otherKey: 'roleId'});
+
+
+//Communication
+
+db.communication = require('../model/communication/com_profile.model.js')(sequelize, Sequelize);
 
 
 module.exports = db;
