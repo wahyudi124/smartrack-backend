@@ -45,7 +45,7 @@ require('./app/router/auth.router.js')(app);
 require('./app/router/ups.router.js')(app)
 require('./app/router/aircond.router.js')(app);
 require('./app/router/battery.router.js')(app)
-
+require('./app/router/comm.ruter.js')(app);
  
 // Create a Server
 var server = app.listen(5005, function () {

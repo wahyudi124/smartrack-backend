@@ -98,7 +98,7 @@ db.aircond_protocol.belongsTo(db.aircond_profile, {foreignKey:'id_profile',targe
 //aircond model
 db.pdu_profile = require('../model/pdu/pdu_profile.model.js')(sequelize,Sequelize)
 db.pdu_latest  = require('../model/pdu/pdu_latest.model.js') (sequelize,Sequelize)
-db.pdu_library = require('../model/aircond/pdu_library.model.js')(sequelize,Sequelize)
+db.pdu_library = require('../model/pdu/pdu_library.model.js')(sequelize,Sequelize)
 db.pdu_timeseries = require('../model/pdu/pdu_timeseries.model')(sequelize,Sequelize)
 db.pdu_protocol = require('../model/pdu/pdu_protocol.model.js')(sequelize,Sequelize)
 db.pdu_profile.hasMany(db.pdu_latest, {foreignKey:'id_profile',sourceKey:'id'});
@@ -113,11 +113,15 @@ db.pdu_protocol.belongsTo(db.pdu_profile, {foreignKey:'id_profile',targetKey: 'i
 
 db.user = require('../model/auth/user.model.js')(sequelize, Sequelize);
 db.role = require('../model/auth/role.model.js')(sequelize, Sequelize);
- 
 
-// auth
  
 db.role.belongsToMany(db.user, { through: 'user_roles', foreignKey: 'roleId', otherKey: 'userId'});
 db.user.belongsToMany(db.role, { through: 'user_roles', foreignKey: 'userId', otherKey: 'roleId'});
+
+
+//Communication
+
+db.communication = require('../model/communication/com_profile.model.js')(sequelize, Sequelize);
+
 
 module.exports = db;
