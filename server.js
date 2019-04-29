@@ -45,12 +45,7 @@ require('./app/router/auth.router.js')(app);
 require('./app/router/ups.router.js')(app)
 require('./app/router/aircond.router.js')(app);
 require('./app/router/battery.router.js')(app)
-<<<<<<< HEAD
-require('./app/router/comm.ruter.js')(app);
-=======
-require('./app/router/pdu.router.js')(app)
-
->>>>>>> 9fcbe3d04116d4b959d346951d61fc24d93439ae
+require('./app/router/comm.router')(app);
  
 // Create a Server
 var server = app.listen(5005, function () {
