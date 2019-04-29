@@ -34,8 +34,8 @@ exports.create = (req, res, next) => {
                     var_name    : item.var_name,
                     id_profile  : data.id,
                     unit        : item.unit,
-                    read_this   : item.read,
-                    write_this  : item.write,
+                    read_this   : item.read_this,
+                    write_this  : item.write_this,
                 })
             }))
             .then(res.send("Rectifrectifier Profile Create"));
@@ -123,6 +123,8 @@ exports.getDataConfig = (req,res,next) => {
     ).then(data =>{
         //console.log(data);
         res.status(200).send(JSON.parse(data.available_data));
+    }).catch( () =>{
+        res.status(404).send("Data Null");
     })
 }
 
@@ -140,6 +142,8 @@ exports.addLibrary = (req,res,next) => {
 exports.findAll = (req,res,next) => {
     Profile.findAll().then(data =>{
         res.send(data);
+    }).catch( () =>{
+        res.status(404).send("Data Null");
     })
 }
 
@@ -220,8 +224,8 @@ exports.update = (req, res,next) => {
                             var_name    : item.var_name,
                             id_profile  : req.params.profileId,
                             unit        : item.unit,
-                            read_this   : item.read,
-                            write_this  : item.write,
+                            read_this   : item.read_this,
+                            write_this  : item.write_this,
                         },
                         {where : {id : item.id}})
                     })).then(res.send("Data Uptodate"));
