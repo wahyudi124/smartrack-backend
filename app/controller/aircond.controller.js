@@ -1,9 +1,9 @@
 const db = require('../config/db.config.js');
-const Profile = db.ups_profile;
-const Latest = db.ups_latest;
-const Log = db.ups_timeseries;
-const Library = db.ups_library;
-const Protocol = db.ups_protocol;
+const Profile = db.aircond_profile;
+const Latest = db.aircond_latest;
+const Log = db.aircond_timeseries;
+const Library = db.aircond_library;
+const Protocol = db.aircond_protocol;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const io = require('../../socketio');
@@ -68,7 +68,12 @@ exports.getAllManufaturer = (req,res,next) => {
     Library.findAll({
         attributes : ['manufacturer']}
         ).then(data => {
-            res.status(200).send(data);
+            var dataArray = [];
+            data.map( data =>{
+                if(isInArray(data.manufacturer,dataArray) == false){
+                   dataArray.push(data.manufacturer);
+                }})
+            res.status(200).send({"manufacturer" : dataArray});
         })
 }
 
@@ -77,9 +82,18 @@ exports.getAllPartNumber = (req,res,next) => {
         {attributes : ['part_number'],
         where : {manufacturer : req.params.manufacturerName}},
         ).then(data => {
-            res.status(200).send(data);
+            var dataArray = [];
+            data.map( data =>{
+                if(isInArray(data.part_number,dataArray) == false){
+                   dataArray.push(data.part_number);
+                }})
+            res.status(200).send({"part_number" : dataArray});
         })
 }
+
+function isInArray(value, array) {
+    return array.indexOf(value) > -1;
+  }
 
 exports.getAvaiableProtocol = (req,res,next) => {
     Library.findAll(
@@ -89,9 +103,15 @@ exports.getAvaiableProtocol = (req,res,next) => {
             part_number : req.params.part_number,}},
         
         ).then(data => {
-            res.status(200).send(data);
+            var dataArray = [];
+            data.map( data =>{
+                if(isInArray(data.protocol,dataArray) == false){
+                   dataArray.push(data.protocol);
+                }})
+            res.status(200).send({"protocol" : dataArray});
         })
 }
+
 
 exports.getDataConfig = (req,res,next) => {
     Library.findOne(

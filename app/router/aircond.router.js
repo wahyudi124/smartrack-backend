@@ -24,9 +24,9 @@ module.exports = function(app){
 
     app.get('/api/aircond/dataconfig',aircond.getDataConfig);
 
-    app.get('/api/aircond/library/manufacture',aircond.getAllManufaturer);
+    app.get('/api/aircond/library/manufacturer',aircond.getAllManufaturer);
 
     app.get('/api/aircond/library/partnumber/:manufacturerName',aircond.getAllPartNumber);
 
-    app.get('/api/aircond/library/protocol/:manufacturerName/:partnumber',aircond.getAvaiableProtocol)
+    app.get('/api/aircond/library/protocol/:manufacturer/:part_number',aircond.getAvaiableProtocol)
 }

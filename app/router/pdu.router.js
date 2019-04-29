@@ -24,9 +24,9 @@ module.exports = function(app){
 
     app.get('/api/pdu/dataconfig',pdu.getDataConfig);
 
-    app.get('/api/pdu/library/manufacture',pdu.getAllManufaturer);
+    app.get('/api/pdu/library/manufacturer',pdu.getAllManufaturer);
 
     app.get('/api/pdu/library/partnumber/:manufacturerName',pdu.getAllPartNumber);
 
-    app.get('/api/pdu/library/protocol/:manufacturerName/:partnumber',pdu.getAvaiableProtocol)
+    app.get('/api/pdu/library/protocol/:manufacturer/:part_number',pdu.getAvaiableProtocol)
 }

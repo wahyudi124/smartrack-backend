@@ -24,9 +24,9 @@ module.exports = function(app){
 
     app.get('/api/ups/dataconfig',ups.getDataConfig);
 
-    app.get('/api/ups/library/manufacture',ups.getAllManufaturer);
+    app.get('/api/ups/library/manufacturer',ups.getAllManufaturer);
 
     app.get('/api/ups/library/partnumber/:manufacturerName',ups.getAllPartNumber);
 
-    app.get('/api/ups/library/protocol/:manufacturerName/:partnumber',ups.getAvaiableProtocol)
+    app.get('/api/ups/library/protocol/:manufacturer/:part_number',ups.getAvaiableProtocol)
 }
