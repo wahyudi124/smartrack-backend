@@ -32,11 +32,13 @@ app.use('/api/v1', swaggerUI.serve, swaggerUI.setup(swagerDocument, options));
 // });
 
 const db = require('./app/config/db.config.js');
+const Role = db.role;
   
 //force: true will drop the table if it already exists
-// db.sequelize.sync({force: true}).then(() => {
-//   console.log('Drop and Resync with { force: true }');
-// });
+db.sequelize.sync({force: true}).then(() => {
+  console.log('Drop and Resync with { force: true }');
+  initial();   
+});
 
 require('./app/router/io.router.js')(app);
 require('./app/router/sensor.router.js')(app);
@@ -45,7 +47,8 @@ require('./app/router/auth.router.js')(app);
 require('./app/router/ups.router.js')(app)
 require('./app/router/aircond.router.js')(app);
 require('./app/router/battery.router.js')(app)
-require('./app/router/comm.router')(app);
+require('./app/router/comm.router.js')(app);
+require('./app/router/setting.router.js')(app);
  
 // Create a Server
 var server = app.listen(5005, function () {
@@ -67,4 +70,21 @@ io.on('connection', socket => {
 
 
 // console.log('Test');
+
+function initial(){
+	Role.create({
+		id: 1,
+		name: "USER"
+	});
+	
+	Role.create({
+		id: 2,
+		name: "ADMIN"
+	});
+	
+	Role.create({
+		id: 3,
+		name: "PM"
+	});
+}
 

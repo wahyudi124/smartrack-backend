@@ -61,7 +61,7 @@ exports.signin = (req, res) => {
     }
     
     var token = jwt.sign({ id: user.id }, config.secret, {
-      expiresIn: 60 // expires in 24 hours
+      expiresIn: 86400 // expires in 24 hours
     });
     
     res.status(200).send({"user":{ auth: true, token: token, role: user.role, username: user.username, monitor: user.monitor, control: user.control, config: user.config }});

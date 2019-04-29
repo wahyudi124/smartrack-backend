@@ -29,21 +29,7 @@ isAdmin = (req, res, next) => {
 	let token = req.headers['x-access-token'];
 	yas = req.userId;
 	console.log(yas);
-	// User.findByPK(req.userId)
-	// 	.then(user => {
-	// 		user.getRoles().then(roles => {
-	// 			for(let i=0; i<roles.length; i++){
-	// 				console.log(roles[i].name);
-	// 				if(roles[i].name.toUpperCase() === "ADMIN"){
-	// 					next();
-	// 					return;
-	// 				}
-	// 			}
-				
-	// 			res.status(403).send("Require Admin Role!");
-	// 			return;
-	// 		})
-	// 	})
+	
 	User.findByPk(yas)
 		.then(user => {
 			user.getRoles().then(roles => {

@@ -113,7 +113,6 @@ db.pdu_protocol.belongsTo(db.pdu_profile, {foreignKey:'id_profile',targetKey: 'i
 
 db.user = require('../model/auth/user.model.js')(sequelize, Sequelize);
 db.role = require('../model/auth/role.model.js')(sequelize, Sequelize);
-
  
 db.role.belongsToMany(db.user, { through: 'user_roles', foreignKey: 'roleId', otherKey: 'userId'});
 db.user.belongsToMany(db.role, { through: 'user_roles', foreignKey: 'userId', otherKey: 'roleId'});
@@ -123,5 +122,18 @@ db.user.belongsToMany(db.role, { through: 'user_roles', foreignKey: 'userId', ot
 
 db.communication = require('../model/communication/com_profile.model.js')(sequelize, Sequelize);
 
+
+//Setting MQTT
+
+db.setting_mqtt = require('../model/setting/mqtt.modal.js')(sequelize, Sequelize);
+
+
+//Setting SNMP
+db.setting_snmp = require('../model/setting/snmp.modal.js')(sequelize,Sequelize);
+db.setting_snmp_oid = require('../model/setting/snmp.modal.js')(sequelize,Sequelize);
+
+
+db.setting_snmp.hasMany(db.setting_snmp_oid,{foreignKey:'id_profile',sourceKey:'id'})
+db.setting_snmp_oid.belongsTo(db.setting_snmp, {foreignKey:'id_profile',targetKey: 'id'})
 
 module.exports = db;

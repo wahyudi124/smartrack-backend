@@ -21,7 +21,7 @@ exports.create = (req, res, next) => {
 }
 
 exports.update = (req, res, next) => {
-    const id = req.params.profileId;
+    const id = 1;
     comm.update({
         eth_ipaddress: req.body.eth_ipaddress,
         eth_netmask: req.body.eth_netmask,
@@ -34,7 +34,7 @@ exports.update = (req, res, next) => {
         wifi_gateway: req.body.wifi_gateway
     },
     {
-        where: {id: req.params.profileId}
+        where: {id: 1}
     }).then(() => {
         res.status(200).send("Update Comunication Successfully!!! ");
     });

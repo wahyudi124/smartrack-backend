@@ -42,7 +42,7 @@ exports.update = (req, res,next) => {
                         installed_date : req.body.assets.installed_date }, 
              { where: {id: req.params.profileId} }
              ).then(() => {
-             res.status(200).send("updated successfully a IO Profile with id = " + id);
+             res.status(200).send("updated successfully a Asset Profile with id = " + id);
              });
 };
 

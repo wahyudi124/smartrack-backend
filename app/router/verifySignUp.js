@@ -26,7 +26,7 @@ checkRolesExisted = (req, res, next) => {
 		// 	res.status(400).send("Fail -> Does NOT exist Role = " + req.body.users.role[i]);
 		// 	return;
 		// }
-		if (!config.ROREs.includes(req.body.users.role[i].toUpperCase())){
+		if (!config.ROLEs.includes(req.body.users.role[i].toUpperCase())){
 			res.status(400).send("Fail -> Does NOT exist Rolo = " + req.body.users.role[i]);
 			return;
 		}
