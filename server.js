@@ -44,7 +44,8 @@ require('./app/router/rectifier.router.js')(app);
 require('./app/router/auth.router.js')(app);
 require('./app/router/ups.router.js')(app)
 require('./app/router/aircond.router.js')(app);
-require('./app/router/battery.router.js')(app)
+require('./app/router/battery.router.js')(app);
+require('./app/router/pdu.router.js')(app);
 require('./app/router/comm.router')(app);
  
 // Create a Server
