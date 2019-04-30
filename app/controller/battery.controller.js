@@ -34,8 +34,8 @@ exports.create = (req, res, next) => {
                     var_name    : item.var_name,
                     id_profile  : data.id,
                     unit        : item.unit,
-                    read_this   : item.read,
-                    write_this  : item.write,
+                    read_this   : item.read_this,
+                    write_this  : item.write_this,
                 })
             }))
             .then(res.send("Battbattery Profile Create"));
@@ -44,7 +44,7 @@ exports.create = (req, res, next) => {
 
 exports.updatelatest = (req,res,next) => {
 
-    Promise.all(req.body.newValue.map(data => {
+    Promise.all(req.body.available_data.map(data => {
         Latest.update({value : data.value},
         {where : {id_profile : req.params.profileId,
                  var_name : data.var_name
@@ -124,6 +124,8 @@ exports.getDataConfig = (req,res,next) => {
     ).then(data =>{
         //console.log(data);
         res.status(200).send(JSON.parse(data.available_data));
+    }).catch( () => {
+        res.status(404).send("Data Null");
     })
 }
 
@@ -221,8 +223,8 @@ exports.update = (req, res,next) => {
                             var_name    : item.var_name,
                             id_profile  : req.params.profileId,
                             unit        : item.unit,
-                            read_this   : item.read,
-                            write_this  : item.write,
+                            read_this   : item.read_this,
+                            write_this  : item.write_this,
                         },
                         {where : {id : item.id}})
                     })).then(res.send("Data Uptodate"));
