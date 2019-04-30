@@ -22,23 +22,10 @@ module.exports = (sequelize, Sequelize) => {
     },
     {
         timestamps: false,  // I do want timestamps here
-    });
-    
-    //SNMP_MIB
-    const SNMP_mib = sequelize.define('snmp_mib', {
-        name : {
-            type: Sequelize.STRING
-        },
-        oid : {
-            type: Sequelize.STRING
-        }
-    },
-    {
-        timestamps: false,  // I do want timestamps here
-    });
+    })
 
 
 
 
-    return SNMP_profile, SNMP_mib;
+    return SNMP_profile;
 }

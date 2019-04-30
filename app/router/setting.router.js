@@ -17,6 +17,16 @@ module.exports = function(app){
     app.post('/api/settings/createSNMP', setting.createSNMP);
 
 
+    //LOG
+    app.get('/api/settings/getLog', setting.findAllLog);
+    app.post('/api/settings/createLog',setting.createLog);
+    app.patch('/api/settings/editLog',setting.updateLog);
+
+
+    //HMI SECURITY
+    app.get('/api/settings/getHMI', setting.findAllHMI);
+    app.post('/api/settings/createHMI',setting.createHMI);
+    app.patch('/api/settings/editHMI',setting.updateHMI);
 
 
 

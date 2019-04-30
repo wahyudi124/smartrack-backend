@@ -86,15 +86,14 @@ exports.updatePass = (req, res) => {
 
   User.findOne({
     where: {
-      Id: req.body.users.id
+      Id: req.params.profileId
     }
   }).then(user=> {
-    var passwordlama =  bcrypt.compareSync(req.body.users.password, user.password);
+    var passwordlama =  bcrypt.compareSync(req.body.users.old_password, user.password);
     if (!passwordlama){
       return res.status(401).send({ update: false, reason: "The Old Password entered was invalid"});
     }
-    //BELUM SELESAI
-    passwordbaru = bcrypt.hashSync(req.body.users.passwordNew, 8)
+    passwordbaru = bcrypt.hashSync(req.body.users.new_password, 8)
     // user.update({password: passwordbaru}).success(res.send("User Changed Password successfully!"));
     user.update({password: passwordbaru}).then(()=> {
       res.status(200).send("Password Updated");
@@ -103,16 +102,42 @@ exports.updatePass = (req, res) => {
   });
 }
 
+
+// exports.updatePass = (req, res) => {
+//   console.log("Update Password");
+
+//   User.findOne({
+//     where: {
+//       id: req.params.profileId
+//     }
+//   }).then(user=> {
+//     var passwordlama =  bcrypt.compareSync(req.body.users.old_password, user.password);
+//     if (!passwordlama){
+//       return res.status(401).send({ update: false, reason: "The Old Password entered was invalid"});
+//     }
+
+//     passwordbaru = bcrypt.hashSync(req.body.users.new_password, 8)
+//     // user.update({password: passwordbaru}).success(res.send("User Changed Password successfully!"));
+//     user.update({password: passwordbaru}).then(()=> {
+//       res.status(200).send("Password Updated");
+//     });
+    
+//   });
+// }
+
 //Update Profile
 exports.updateProfile = (req, res) => {
   console.log("Update User");
 
-  User.findOne({
-    where: {
-      Id: req.body.users.id
-    }
-  }).then(user => {
-    res.status(200).send({"user": { id: user.id, username: user.username, role: user.role, company: user.company, department: user.departement, monitor: user.monitor, control: user.control, config: user.config }});
+  User.update({
+    username: req.body.users.username,
+    company: req.body.users.company,
+    departement: req.body.users.departement,
+    monitor: req.body.users.monitor,
+    control: req.body.users.control,
+    config: req.body.users.config
+  }, { where: {id: req.params.profileId} }).then(user => {
+    res.status(200).send("Profile Updated!!!!");
   })
 }
  

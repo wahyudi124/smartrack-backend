@@ -46,6 +46,8 @@ db.rectifier_latest  = require('../model/rectifier/rectifier_latest.model.js') (
 db.rectifier_library = require('../model/rectifier/rectifier_library.model.js')(sequelize,Sequelize)
 db.rectifier_timeseries = require('../model/rectifier/rectifier_timeseries.model')(sequelize,Sequelize)
 db.rectifier_protocol = require('../model/rectifier/rectifier_protocol.model.js')(sequelize,Sequelize)
+
+
 db.rectifier_profile.hasMany(db.rectifier_latest, {foreignKey:'id_profile',sourceKey:'id'});
 db.rectifier_latest.belongsTo(db.rectifier_profile, {foreignKey:'id_profile',targetKey: 'id'});
 db.rectifier_profile.hasMany(db.rectifier_timeseries, {foreignKey:'id_profile',sourceKey:'id'});
@@ -130,10 +132,23 @@ db.setting_mqtt = require('../model/setting/mqtt.modal.js')(sequelize, Sequelize
 
 //Setting SNMP
 db.setting_snmp = require('../model/setting/snmp.modal.js')(sequelize,Sequelize);
-db.setting_snmp_oid = require('../model/setting/snmp.modal.js')(sequelize,Sequelize);
+db.setting_snmp_oid = require('../model/setting/snmp_mib.modal.js')(sequelize,Sequelize); //snmp_mib
 
 
 db.setting_snmp.hasMany(db.setting_snmp_oid,{foreignKey:'id_profile',sourceKey:'id'})
 db.setting_snmp_oid.belongsTo(db.setting_snmp, {foreignKey:'id_profile',targetKey: 'id'})
+
+
+//LOG
+
+db.setting_log = require('../model/setting/log.modal.js')(sequelize, Sequelize);
+
+
+//HMI SECURITY
+
+db.setting_hmi = require('../model/setting/hmi.security.modal.js')(sequelize, Sequelize);
+
+
+
 
 module.exports = db;

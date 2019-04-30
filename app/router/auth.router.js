@@ -11,9 +11,9 @@ module.exports = function(app) {
 	
 	app.post('/api/auth/signin', controller.signin);
 
-	app.get('/api/auth/updateProfile', controller.updateProfile);
+	app.patch('/api/auth/updateProfile/:profileId', controller.updateProfile);
 
-	app.post('/api/auth/updatePass', controller.updatePass);
+	app.patch('/api/auth/updatePass/:profileId', controller.updatePass);
 	
 	app.get('/api/test/user', [authJwt.verifyToken], controller.userContent);
 	
