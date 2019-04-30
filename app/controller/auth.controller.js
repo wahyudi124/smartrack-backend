@@ -8,6 +8,15 @@ const Op = db.Sequelize.Op;
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 
+//getAll User
+
+exports.getAllUser = (req,res,next) => {
+  User.findAll({
+    attributes: { exclude: ['password', 'email']}
+  }).then(data =>{
+      res.status(200).send(data);
+  });
+}
 
 //Sign up
 exports.signup = (req, res) => {
@@ -21,7 +30,7 @@ exports.signup = (req, res) => {
     departement: req.body.users.departement,
     monitor: req.body.users.monitor,
     control: req.body.users.control,
-    config: req.body.users.config,
+    config: req.body.users.config
     
   }).then(user => {
     Role.findAll({

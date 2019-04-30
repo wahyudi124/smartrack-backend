@@ -35,10 +35,10 @@ const db = require('./app/config/db.config.js');
 const Role = db.role;
   
 //force: true will drop the table if it already exists
-db.sequelize.sync({force: true}).then(() => {
-  console.log('Drop and Resync with { force: true }');
-  initial();   
-});
+// db.sequelize.sync({force: true}).then(() => {
+//   console.log('Drop and Resync with { force: true }');
+//   initial();   
+// });
 
 require('./app/router/io.router.js')(app);
 require('./app/router/sensor.router.js')(app);
@@ -46,15 +46,12 @@ require('./app/router/rectifier.router.js')(app);
 require('./app/router/auth.router.js')(app);
 require('./app/router/ups.router.js')(app)
 require('./app/router/aircond.router.js')(app);
-<<<<<<< HEAD
 require('./app/router/battery.router.js')(app)
 require('./app/router/comm.router.js')(app);
 require('./app/router/setting.router.js')(app);
-=======
 require('./app/router/battery.router.js')(app);
 require('./app/router/pdu.router.js')(app);
 require('./app/router/comm.router')(app);
->>>>>>> c40f2251524a29c2df006af3e61600b69ce8d022
  
 // Create a Server
 var server = app.listen(5005, function () {
