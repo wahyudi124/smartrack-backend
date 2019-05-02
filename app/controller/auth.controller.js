@@ -18,6 +18,20 @@ exports.getAllUser = (req,res,next) => {
   });
 }
 
+//delete
+
+exports.deleteUser = (req, res, newxt)=> {
+  const id = req.params.profileId;
+  User.destroy({
+    where:
+    {
+      id: id
+    }
+  }).then(()=> {
+    res.status(200).send('User deleted Successfully ID = ' +id);
+  })
+}
+
 //Sign up
 exports.signup = (req, res) => {
   // Save User to Database
