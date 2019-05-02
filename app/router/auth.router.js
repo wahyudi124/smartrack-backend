@@ -7,7 +7,7 @@ module.exports = function(app) {
 	
 	app.get('/api/auth/getAllUser', controller.getAllUser);
 	
-	app.post('/api/auth/deleteUser/:profileId', controller.deleteUser);
+	app.delete('/api/auth/deleteUser/:profileId', controller.deleteUser);
  
 	app.post('/api/auth/signup', [verifySignUp.checkDuplicateUserNameOrEmail, verifySignUp.checkRolesExisted], controller.signup);
 	
