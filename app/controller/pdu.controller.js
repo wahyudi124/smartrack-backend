@@ -51,7 +51,7 @@ exports.updatelatest = (req,res,next) => {
                 }
         })}))
         .then( () => {
-            io.getIO().emit("rectifier_data",req.body.newValue)
+            io.getIO().emit("pdu_data",req.body.newValue)
             Log.create({
                 id_profile : req.params.id_profile,
                 data : JSON.stringify(req.body.newValue)
