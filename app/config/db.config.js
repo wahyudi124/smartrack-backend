@@ -148,7 +148,8 @@ db.setting_log = require('../model/setting/log.modal.js')(sequelize, Sequelize);
 
 db.setting_hmi = require('../model/setting/hmi.security.modal.js')(sequelize, Sequelize);
 
-
+//time
+db.time = require('../model/time/time.model.js')(sequelize,Sequelize); 
 
 
 module.exports = db;
