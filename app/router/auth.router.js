@@ -6,6 +6,8 @@ module.exports = function(app) {
 	const controller = require('../controller/auth.controller');
 	
 	app.get('/api/auth/getAllUser', controller.getAllUser);
+	
+	app.post('/api/auth/deleteUser/:profileId', controller.deleteUser);
  
 	app.post('/api/auth/signup', [verifySignUp.checkDuplicateUserNameOrEmail, verifySignUp.checkRolesExisted], controller.signup);
 	
