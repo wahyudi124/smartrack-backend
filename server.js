@@ -4,6 +4,8 @@ var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json())
 
+app.use(cors());
+
 const initial = require('./app/config/initial.js');
 
 const db = require('./app/config/db.config.js');
