@@ -1,7 +1,7 @@
 const env = {
-    database: 'test',
+    database: 'smart_rack_db',
     username: 'root',
-    password: 'gspe-intercon',
+    password: '',
     host: 'localhost',
     dialect: 'mysql',
     pool: {
