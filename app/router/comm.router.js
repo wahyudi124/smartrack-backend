@@ -3,7 +3,7 @@ module.exports = function(app){
 
     app.post('/api/comm/add', comm.create);
 
-    app.patch('/api/comm/update', comm.update);
+    app.patch('/api/comm/update', comm.Update);
 
     app.get('/api/comm/get', comm.get);
 }

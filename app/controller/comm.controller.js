@@ -20,9 +20,10 @@ exports.create = (req, res, next) => {
     })
 }
 
-exports.update = (req, res, next) => {
+exports.Update = (req, res, next) => {
     const id = 1;
     comm.update({
+        eth_dhcp: req.body.eth_dhcp,
         eth_ipaddress: req.body.eth_ipaddress,
         eth_netmask: req.body.eth_netmask,
         eth_gateway: req.body.eth_gateway,
