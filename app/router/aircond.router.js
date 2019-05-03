@@ -22,7 +22,7 @@ module.exports = function(app){
 
     app.post('/api/aircond/library',aircond.addLibrary);
 
-    app.get('/api/aircond/dataconfig',aircond.getDataConfig);
+    app.post('/api/aircond/dataconfig',aircond.getDataConfig);
 
     app.get('/api/aircond/library/manufacturer',aircond.getAllManufaturer);
 
