@@ -22,7 +22,7 @@ module.exports = function(app){
 
     app.post('/api/battery/library',battery.addLibrary);
 
-    app.get('/api/battery/dataconfig',battery.getDataConfig);
+    app.post('/api/battery/dataconfig',battery.getDataConfig);
 
     app.get('/api/battery/library/manufacturer',battery.getAllManufaturer);
 

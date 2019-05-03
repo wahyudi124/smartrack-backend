@@ -22,7 +22,7 @@ module.exports = function(app){
 
     app.post('/api/rectifier/library', rectifier.addLibrary);
 
-    app.get('/api/rectifier/dataconfig',rectifier.getDataConfig);
+    app.post('/api/rectifier/dataconfig',rectifier.getDataConfig);
 
     app.get('/api/rectifier/library/manufacturer',rectifier.getAllManufaturer);
 

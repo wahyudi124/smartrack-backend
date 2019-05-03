@@ -22,7 +22,7 @@ module.exports = function(app){
 
     app.post('/api/ups/library',ups.addLibrary);
 
-    app.get('/api/ups/dataconfig',ups.getDataConfig);
+    app.post('/api/ups/dataconfig',ups.getDataConfig);
 
     app.get('/api/ups/library/manufacturer',ups.getAllManufaturer);
 

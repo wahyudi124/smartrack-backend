@@ -22,7 +22,7 @@ module.exports = function(app){
 
     app.post('/api/pdu/library',pdu.addLibrary);
 
-    app.get('/api/pdu/dataconfig',pdu.getDataConfig);
+    app.post('/api/pdu/dataconfig',pdu.getDataConfig);
 
     app.get('/api/pdu/library/manufacturer',pdu.getAllManufaturer);
 
