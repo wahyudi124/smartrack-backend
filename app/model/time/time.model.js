@@ -1,7 +1,10 @@
 module.exports = (sequelize, Sequelize) => {
     const time = sequelize.define('time', {
-        datetime: {
-            type: Sequelize.DATE
+        date: {
+            type: Sequelize.DATEONLY
+        },
+        time: {
+            type: Sequelize.TIME
         },
         sntp_enable: {
             type: Sequelize.BOOLEAN

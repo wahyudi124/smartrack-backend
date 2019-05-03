@@ -58,6 +58,13 @@ exports.findAllMQTT = (req,res,next) => {
 }
 
 
+// IN ARRAY
+
+function isInArray(value, array) {
+    return array.indexOf(value) > -1;
+  }
+
+
 
 //SNMP
 exports.updateSNMP = (req, res, next) => {
@@ -104,9 +111,17 @@ exports.createSNMP = (req, res, next) => {
     })
 }
 
+
+
 exports.findAllSNMP = (req,res,next) => {
     snmp.findAll().then(data =>{
-        res.send(data);
+        var datas = data;
+        SNMP_OID.findAll().then(dataoid =>{
+            var dataoid = JSON.parse(dataoid.list_MIB);
+            jsonmodel.set(datas,dataoid)
+            res.status(200).send(jsonmodel.get());
+        })
+        
     })
 }
 
