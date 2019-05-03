@@ -40,3 +40,10 @@ exports.update = (req, res, next) => {
     });
 
 }
+
+
+exports.get = (req,res,next) => {
+    comm.findAll().then(data =>{
+        res.send(data);
+    })
+}

@@ -4,4 +4,6 @@ module.exports = function(app){
     app.post('/api/comm/add', comm.create);
 
     app.patch('/api/comm/update', comm.update);
+
+    app.get('/api/comm/get', comm.get);
 }
