@@ -11,11 +11,11 @@ module.exports = function(app) {
  
 	app.post('/api/auth/signup', [verifySignUp.checkDuplicateUserNameOrEmail, verifySignUp.checkRolesExisted], controller.signup);
 	
-	app.post('/api/auth/signin', [authJwt.verifyToken] ,controller.signin);
+	app.post('/api/auth/signin', controller.signin);
 
 	app.patch('/api/auth/updateProfile/:profileId', controller.updateProfile);
 
-	app.patch('/api/auth/updatePass/:profileId', controller.updatePass);
+	app.patch('/api/auth/updatePass/:profileId', [authJwt.verifyToken], controller.updatePass);
 	
 	app.get('/api/test/user', [authJwt.verifyToken], controller.userContent);
 	
