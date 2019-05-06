@@ -4,7 +4,7 @@ module.exports = function(app){
     // Profile Asset Router
     app.post('/api/asset/profile',asset.create);
 
-    app.get('/api/asset/profile',asset.findAll);
+    app.get('/api/asset/profile',asset.findall);
 
     app.get('/api/asset/profile/:profileId',asset.findById);
 

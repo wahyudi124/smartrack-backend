@@ -11,7 +11,7 @@ module.exports = function(app) {
  
 	app.post('/api/auth/signup', [verifySignUp.checkDuplicateUserNameOrEmail, verifySignUp.checkRolesExisted], controller.signup);
 	
-	app.post('/api/auth/signin', controller.signin);
+	app.post('/api/auth/signin', [authJwt.verifyToken] ,controller.signin);
 
 	app.patch('/api/auth/updateProfile/:profileId', controller.updateProfile);
 

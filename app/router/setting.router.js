@@ -11,7 +11,7 @@ module.exports = function(app){
 
 
     //SNMP
-    app.get('/api/settings/getSNMP', setting.findAllSNMP);
+    app.get('/api/settings/getSNMP/:profileId', setting.findAllSNMP);
 
     app.patch('/api/settings/updateSNMP', setting.updateSNMP);
 

@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Latest = sequelize.define('asset_profile', {
+    const asset = sequelize.define('asset_profile', {
         name : {
             type: Sequelize.STRING
         },
@@ -34,5 +34,5 @@ module.exports = (sequelize, Sequelize) => {
     
     )
 
-    return Latest;
+    return asset;
 }

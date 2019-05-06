@@ -120,6 +120,10 @@ db.role.belongsToMany(db.user, { through: 'user_roles', foreignKey: 'roleId', ot
 db.user.belongsToMany(db.role, { through: 'user_roles', foreignKey: 'userId', otherKey: 'roleId'});
 
 
+//Assets Model
+
+db.asset = require('../model/asset/asset_profile.model.js')(sequelize, Sequelize);
+
 //Communication
 
 db.communication = require('../model/communication/com_profile.model.js')(sequelize, Sequelize);

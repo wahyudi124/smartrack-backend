@@ -1,25 +1,31 @@
 const db = require('../config/db.config.js');
-const asset = db.asset_profile;
+const asset = db.asset;
 const Sequelize = require('sequelize');
 const OP = Sequelize.Op;
 
 const io = require('../../socketio');
 
 exports.create = (req, res, next) =>{
-    asset.create({
-        name: req.body.assets.name,
-        manufacturer: req.body.assets.manufacturer,
-        part_number: req.body.assets.part_number,
-        supplier: req.body.assets.supplier,
-        supplier_contact: req.body.assets.supplier_contact,
-        installed_by: req.body.assets.installed_by,
-        installed_date: req.body.assets.installed_date
-    }).then(asset => {
-        res.send({ message: "New Asset Created!!"})
+    var data = JSON.parse(req.body);
+    Promise.all(data.assets.map(item => {
+        asset.create({
+            name: item.name,
+            manufacturer: item.manufacturer,
+            part_number: item.part_number,
+            supplier: item.supplier,
+            supplier_contact: item.supplier_contact,
+            installed_by: item.installed_by,
+            installed_date: item.installed_date,
+            description: item.description
+        })
+    }))
+    .then(data => {
+        console.log(data);
+        res.send("New Asset Created!!");
     })
 }
 
-exports.findAll = (req,res,next)=>{
+exports.findall = (req,res,next)=>{
     asset.findAll().then(asset_profile =>{
         res.send(asset_profile);
     })
