@@ -11,7 +11,7 @@ exports.create = (req, res, next) => {
         sntp_prim_address: req.body.sntp_prim_add,
         sntp_back_address: req.body.sntp_back_add,
         udp_port: req.body.udp_port,
-        poll_interval: req.body.pollInterval
+        poll_interval: req.body.poll_interval
     }).then(comm => {
         res.status(200).send("New Set Time Created!!!");
     })
@@ -23,10 +23,10 @@ exports.update = (req, res, next) => {
         date: req.body.date,
         time: req.body.time,
         sntp_enable: req.body.sntp_enable,
-        sntp_prim_address: req.body.sntp_prim_add,
-        sntp_back_address: req.body.sntp_back_add,
+        sntp_prim_address: req.body.sntp_prim_address,
+        sntp_back_address: req.body.sntp_back_address,
         udp_port: req.body.udp_port,
-        poll_interval: req.body.pollInterval
+        poll_interval: req.body.poll_interval
     },
     {
         where: {id: 1}

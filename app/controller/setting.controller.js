@@ -7,6 +7,7 @@ const HMI = db.setting_hmi;
 const datetime = db.setting_datetime;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+const jsonmodel = require('../model/setting/jsonmodel.js');
 
 
 var bcrypt = require('bcryptjs');
@@ -101,7 +102,7 @@ exports.createSNMP = (req, res, next) => {
         sysoid: req.body.sys_oid,
         
         snmp_mibs : [{
-            list_MIB : JSON.stringify(req.body.mib_list),
+            list_MIB :  JSON.stringify(req.body.mib_list),
                                }]
                 },
         {
@@ -114,15 +115,37 @@ exports.createSNMP = (req, res, next) => {
 
 
 exports.findAllSNMP = (req,res,next) => {
-    snmp.findAll().then(data =>{
+    snmp.findOne({where: {id: req.params.profileId}}).then(data =>{
         var datas = data;
-        SNMP_OID.findAll().then(dataoid =>{
-            var dataoid = JSON.parse(dataoid.list_MIB);
-            jsonmodel.set(datas,dataoid)
+        // SNMP_OID.findAll({attributes: { exclude: ['id_profile', 'id']}}).then(oid =>{
+        SNMP_OID.findOne({attributes : ['list_MIB'], where : {id_profile : req.params.profileId}})
+        .then(oid =>{
+            var dataoidi = JSON.parse(oid.list_MIB);
+            jsonmodel.set(data, dataoidi);
+            // var dataoidi = JSON.parse(oid.list_MIB);
+            // jsonmodel.set(datas,dataoidi)
             res.status(200).send(jsonmodel.get());
         })
         
     })
+
+    // SNMP_OID.findOne({attributes : ['list_MIB'],where : {id_profile : req.params.profileId}})
+    //                 .then(data=>{
+    //                     res.send(JSON.parse(data.list_MIB));
+    //                 })
+
+    // snmp.findAll().then(data =>{
+    //     SNMP_OID.findAll().then(dataoid =>{
+    //         var datas = JSON.parse(dataoid.list_MIB);
+    //         jsonmodel.set(data,datas);
+    //         res.send(jsonmodel.get());
+    //     })
+        
+    // })
+
+    // snmp.findAll().then(data =>{
+    //     res.send(data);
+    // })
 }
 
 

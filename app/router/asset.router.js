@@ -4,7 +4,7 @@ module.exports = function(app){
     // Profile Asset Router
     app.post('/api/asset/profile',asset.create);
 
-    app.get('/api/asset/profile',asset.findAll);
+    app.get('/api/asset/profile',asset.findall);
 
     app.get('/api/asset/profile/:profileId',asset.findById);
 
@@ -13,9 +13,9 @@ module.exports = function(app){
     app.delete('/api/asset/profile/:profileId',asset.delete);
 
     //Dashboard asset Router
-    app.get('/api/asset/dashboard/:page',asset.Dashboard);
+    // app.get('/api/asset/dashboard/:page',asset.Dashboard);
 
-    app.patch('/api/asset/dashboard/:profileId', asset.DashboardControl);
+    // app.patch('/api/asset/dashboard/:profileId', asset.DashboardControl);
 
     //Get Monitor asset By Firmware
 //     app.get('/api/asset/monitorio/',asset.findControlProfile);

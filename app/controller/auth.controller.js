@@ -87,7 +87,7 @@ exports.signin = (req, res) => {
       expiresIn: 86400 // expires in 24 hours
     });
     
-    res.status(200).send({"user":{ auth: true, token: token, role: user.role, username: user.username, monitor: user.monitor, control: user.control, config: user.config }});
+    res.status(200).send({"user":{ id: user.id, auth: true, token: token, role: user.role, username: user.username, monitor: user.monitor, control: user.control, config: user.config }});
     
   }).catch(err => {
     res.status(500).send('Error -> ' + err);

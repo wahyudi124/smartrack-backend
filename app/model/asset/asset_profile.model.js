@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Latest = sequelize.define('asset_profile', {
+    const asset = sequelize.define('asset_profile', {
         name : {
             type: Sequelize.STRING
         },
@@ -7,9 +7,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         part_number: {
-            type: Sequelize.STRING
-        },
-        sertial_number: {
             type: Sequelize.STRING
         },
         supplier: {
@@ -22,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         installation_date: {
-            type: Sequelize.DATE
+            type: Sequelize.DATEONLY
         },
         description: {
             type: Sequelize.TEXT
@@ -34,5 +31,5 @@ module.exports = (sequelize, Sequelize) => {
     
     )
 
-    return Latest;
+    return asset;
 }
