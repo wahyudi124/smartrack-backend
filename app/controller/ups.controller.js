@@ -150,7 +150,7 @@ exports.findById = (req,res,next) => {
     var id = req.params.profileId;
     Profile.findOne({where : {id : id}}).then(profiles => {
         var profile = profiles;
-        Protocol.findOne( {attributes : ['protocolSetting']}, {where : {id_profile : id}}).then(protocols => {
+        Protocol.findOne( {attributes : ['protocolSetting'],where : {id_profile : id}}).then(protocols => {
             var protocol = JSON.parse(protocols.protocolSetting);
             Latest.findAll({attributes : ['id','var_name','unit','read_this','write_this'], where : {id_profile : req.params.profileId}})
             .then(latests => {
