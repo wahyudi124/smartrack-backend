@@ -9,9 +9,6 @@ module.exports = (sequelize, Sequelize) => {
         part_number: {
             type: Sequelize.STRING
         },
-        sertial_number: {
-            type: Sequelize.STRING
-        },
         supplier: {
             type: Sequelize.STRING
         },
@@ -22,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         installation_date: {
-            type: Sequelize.DATE
+            type: Sequelize.DATEONLY
         },
         description: {
             type: Sequelize.TEXT
