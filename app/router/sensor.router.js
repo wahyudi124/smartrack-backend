@@ -6,6 +6,8 @@ module.exports = function(app){
 
     app.get('/api/sensor/profile',sensor.findAll);
 
+    app.get('/api/sensor/profile/type',sensor.getSensorType);
+
     app.get('/api/sensor/profile/:profileId',sensor.findById);
 
     app.patch('/api/sensor/profile/:profileId',sensor.update);

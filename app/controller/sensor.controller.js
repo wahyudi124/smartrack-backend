@@ -8,11 +8,21 @@ const io = require('../../socketio');
 
 
 exports.getSensorType = (req,res,next) => {
-    Library.findAll({attributes : ['type']})
-    .then(data =>{
-        res.send(data);
-    })
+    Library.findAll({
+        attributes : ['type']}
+        ).then(data => {
+            var dataArray = [];
+            data.map( data =>{
+                if(isInArray(data.type,dataArray) == false){
+                   dataArray.push(data.type);
+                }})
+            res.status(200).send({"type" : dataArray});
+        })
 }
+
+function isInArray(value, array) {
+    return array.indexOf(value) > -1;
+  }
 
 exports.create = (req, res, next) => {
 
