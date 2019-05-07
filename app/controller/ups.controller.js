@@ -169,7 +169,7 @@ exports.getWillMount = (req,res,next) =>{
                     arrData.push(format)
                 }))
                 .then(()=>{
-                    io.getIO().emit("ups_data",{"newValue" : arrData})
+                    io.getIO().emit("ups_data",arrData)
                     arrData = [];
                     res.send("Up to Date");
                 })
