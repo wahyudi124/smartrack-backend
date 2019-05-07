@@ -34,6 +34,7 @@ exports.create = (req, res, next) => {
                     var_name    : item.var_name,
                     id_profile  : data.id,
                     unit        : item.unit,
+                    category    : item.category,
                     read_this   : item.read_this,
                     write_this  : item.write_this,
                 })
@@ -144,6 +145,36 @@ exports.findAll = (req,res,next) => {
     Profile.findAll().then(data =>{
         res.send(data);
     })
+}
+
+
+exports.getWillMount = (req,res,next) =>{
+    id_profile = req.params.idProfile;
+    var arrData = []
+    var format = {
+        "var_name" : null,
+        "value"    : null,
+        "unit"     : null,
+        "category"      : null,
+        "id_profile"    : null 
+    }
+
+    Latest.findAll({attributes : ['id','var_name','unit','value','category'], where : {id_profile : req.params.idProfile}})
+            .then(data => {
+                Promise.all(data.map( data =>{
+                    format.var_name = data.var_name
+                    format.value = data.value
+                    format.unit = data.unit
+                    format.category = data.category
+                    format.id_profile = id_profile;
+                    arrData.push(format)
+                }))
+                .then(()=>{
+                    io.getIO().emit("battery_data",{"newValue" : arrData})
+                    arrData = [];
+                    res.send("Up to Date");
+                })
+            })
 }
 
 exports.findById = (req,res,next) => {

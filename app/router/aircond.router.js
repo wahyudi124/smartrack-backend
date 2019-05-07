@@ -24,6 +24,8 @@ module.exports = function(app){
 
     app.post('/api/aircond/dataconfig',aircond.getDataConfig);
 
+    app.get('/api/aircond/dashboard/:idProfile',aircond.getWillMount);
+
     app.get('/api/aircond/library/manufacturer',aircond.getAllManufaturer);
 
     app.get('/api/aircond/library/partnumber/:manufacturerName',aircond.getAllPartNumber);
