@@ -159,8 +159,8 @@ exports.getWillMount = (req,res,next) =>{
     }
 
     Latest.findAll({attributes : ['id','var_name','unit','value','category'], where : {id_profile : req.params.idProfile}})
-            .then(data => {
-                Promise.all(data.map( data =>{
+            .then(datas => {
+                Promise.all(datas.map( data =>{
                     format.var_name = data.var_name
                     format.value = data.value
                     format.unit = data.unit
