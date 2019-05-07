@@ -9,6 +9,9 @@ module.exports = (sequelize, Sequelize) => {
         part_number: {
             type: Sequelize.STRING
         },
+        serial_number: {
+            type: Sequelize.STRING
+        },
         supplier: {
             type: Sequelize.STRING
         },

@@ -187,46 +187,25 @@ exports.findAllLog = (req,res,next) => {
 
 
 
-// Update Password
-exports.updatePass = (req, res) => {
-    console.log("Update Password");
-  
-    User.findOne({
-      where: {
-        Id: req.body.users.id
-      }
-    }).then(user=> {
-      var passwordlama =  bcrypt.compareSync(req.body.users.password, user.password);
-      if (!passwordlama){
-        return res.status(401).send({ update: false, reason: "The Old Password entered was invalid"});
-      }
-  
-      passwordbaru = bcrypt.hashSync(req.body.users.passwordNew, 8)
-      // user.update({password: passwordbaru}).success(res.send("User Changed Password successfully!"));
-      user.update({password: passwordbaru}).then(()=> {
-        res.status(200).send("Password Updated");
-      });
-      
-    });
-  }
-
-
-
 //HMI
 
-
 exports.updateHMI = (req, res, next) => {
-    const id = 1;
-    HMI.findOne({}).then(pin => {
-        var pinlama = bcrypt.compareSync(req.body.old_pin, pin.pin);
-        if (!pinlama){
-            return res.status(401).send({ update: false, reason: "The Old pin entered was invalid"});
+    var id = 1;
+    HMI.findOne({
+        where: {
+            id: id
         }
-        pinbaru - bcrypt.hashSync(req.body.new_pin,8)
-        HMI.update({pin: pinbaru}).then(()=>{
-            res.status(200).send("Pin Updated");
+    }).then(data => {
+        var pinlama = bcrypt.compareSync(req.body.old_pin, data.pin);
+        if (!pinlama) {
+            return res.status(401).send({update: false, reason: "The Old Password entered was invalid"});
+        }
+        pinbaru = bcrypt.hashSync(req.body.new_pin, 8)
+
+        HMI.update({pin : pinbaru}).then(()=>{
+            res.status(200).send("PIN Updated");
         });
-    })
+    });
 }
 
 
@@ -234,9 +213,9 @@ exports.updateHMI = (req, res, next) => {
 exports.createHMI = (req, res, next) => {
     HMI.create({
         mode : req.body.mode,
-        pin: bcrypt.hashSync(req.body.old_pin,8)
+        pin : bcrypt.hashSync(req.body.old_pin, 8)
     }).then(test => {
-        res.status(200).send("New PIN Created!!!");
+        res.status(200).send({pass : test.pin, message: "New PIN Created!!!"});
     })
 }
 

@@ -39,10 +39,10 @@ app.use('/api/v1', swaggerUI.serve, swaggerUI.setup(swagerDocument, options));
 
   
 //force: true will drop the table if it already exists
-// db.sequelize.sync({force: true}).then(() => {
-//   console.log('Drop and Resync with { force: true }');
-//   initial();   
-// });
+db.sequelize.sync({force: true}).then(() => {
+  console.log('Drop and Resync with { force: true }');
+  initial();   
+});
 
 require('./app/router/io.router.js')(app);
 require('./app/router/sensor.router.js')(app);

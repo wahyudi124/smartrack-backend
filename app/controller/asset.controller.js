@@ -10,6 +10,7 @@ exports.create =(req, res, next) => {
         name : req.body.name,
         manufacturer: req.body.manufacturer,
         part_number: req.body.part_number,
+        serial_number : req.body.serial_number,
         supplier: req.body.supplier,
         supplier_contract: req.body.supplier_contact,
         installed_by: req.body.installed_by,
@@ -36,9 +37,10 @@ exports.findById = (req, res, next)=>{
 exports.update = (req, res,next) => {
     const id = req.params.profileId;
     Asset.update( {  
-        name: req.body.name,
+        name : req.body.name,
         manufacturer: req.body.manufacturer,
         part_number: req.body.part_number,
+        serial_number : req.body.serial_number,
         supplier: req.body.supplier,
         supplier_contract: req.body.supplier_contact,
         installed_by: req.body.installed_by,
