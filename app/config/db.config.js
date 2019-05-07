@@ -156,4 +156,9 @@ db.setting_hmi = require('../model/setting/hmi.security.modal.js')(sequelize, Se
 db.time = require('../model/time/time.model.js')(sequelize,Sequelize); 
 
 
+//profile smartrack
+
+db.profile = require('../model/setting/profile.modal.js')(sequelize,Sequelize);
+
+
 module.exports = db;

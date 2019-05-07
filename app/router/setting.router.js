@@ -36,5 +36,11 @@ module.exports = function(app){
     app.patch('/api/settings/editTime',time.update);
 
 
+    //profile
+    app.get('/api/settings/profile', setting.getProfile);
+    app.post('/api/settings/profile', setting.createProfile);
+    app.patch('/api/settings/profile', setting.updateProfile);
+
+
 
 }

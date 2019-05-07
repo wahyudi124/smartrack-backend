@@ -4,7 +4,7 @@ const snmp = db.setting_snmp;
 const SNMP_OID = db.setting_snmp_oid;
 const Log = db.setting_log;
 const HMI = db.setting_hmi;
-const datetime = db.setting_datetime;
+const profile = db.profile;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const jsonmodel = require('../model/setting/jsonmodel.js');
@@ -227,3 +227,49 @@ exports.findAllHMI = (req,res,next) => {
 
 
 
+
+//profile smart rack
+
+exports.getProfile = (req, res, next) => {
+    profile.findAll().then(data =>{
+        res.send(data);
+    })
+}
+
+
+exports.createProfile = (req, res, next) => {
+    profile.create({
+        smartrack_name : req.body.smartrack_name,
+        address: req.body.address,
+        longitude: req.body.longitude,
+        latitude: req.body.latitude,
+        floor: req.body.floor,
+        room: req.body.room,
+        supplier: req.body.supplier,
+        supplier_contact : req.body.supplier_contact,
+        installed_by : req.body.installed_by,
+        installed_date : req.body.installed_date
+    }).then(()=>{
+        res.status(200).send("profile Created!!")
+    })
+}
+
+exports.updateProfile = (req, res, next ) => {
+    profile.update({
+        smartrack_name : req.body.smartrack_name,
+        address: req.body.address,
+        longitude: req.body.longitude,
+        latitude: req.body.latitude,
+        floor: req.body.floor,
+        room: req.body.room,
+        supplier: req.body.supplier,
+        supplier_contact : req.body.supplier_contact,
+        installed_by : req.body.installed_by,
+        installed_date : req.body.installed_date
+    }, {
+        where: {id : 1 }
+    }).then(()=>{
+        res.status(200).send("profile updated");
+
+    })
+}
