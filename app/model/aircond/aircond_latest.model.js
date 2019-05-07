@@ -18,6 +18,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         write_this : {
             type : Sequelize.INTEGER
+        },
+        category : {
+            type : Sequelize.STRING
         }
     },
     {

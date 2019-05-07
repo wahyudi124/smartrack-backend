@@ -20,6 +20,8 @@ module.exports = function(app){
     // //Get Monitor rectifier By Firmware
     app.patch('/api/rectifier/updatevalue/:profileId',rectifier.updatelatest);
 
+    app.get('/api/rectifier/dashboard/:idProfile',rectifier.getWillMount);
+
     app.post('/api/rectifier/library', rectifier.addLibrary);
 
     app.post('/api/rectifier/dataconfig',rectifier.getDataConfig);
