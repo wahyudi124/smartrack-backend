@@ -151,24 +151,23 @@ exports.findAll = (req,res,next) => {
 exports.getWillMount = (req,res,next) =>{
     id_profile = req.params.idProfile;
     var arrData = []
-    var format = {
-        "var_name" : null,
-        "value"    : null,
-        "unit"     : null,
-        "category"      : null,
-        "id_profile"    : null 
-    }
 
-    Latest.findAll({attributes : ['id','var_name','value','unit','category'], where : {id_profile : req.params.idProfile}})
-            .then(data => {
-                Promise.all(data.map( data =>{
-                    format.var_name = data.var_name
-                    format.value = data.value
-                    format.unit = data.unit
-                    format.category = data.category
-                    format.id_profile = id_profile;
-                    arrData.push(format)
-                }))
+    Latest.findAll({attributes : ['id','var_name','unit','value','category'], where : {id_profile : req.params.idProfile}})
+            .then(datas => {
+                Promise.all(datas.map( data => {
+                    arrData.push(
+                        {
+                            "var_name" : data.var_name,
+                            "value"    : data.value,
+                            "unit"     : data.unit,
+                            "category"      : data.category,
+                            "id_profile"    : id_profile
+                        }
+                    )
+                }
+                    
+                )
+                )
                 .then(()=>{
                     io.getIO().emit("aircond_data",arrData)
                     arrData = [];
