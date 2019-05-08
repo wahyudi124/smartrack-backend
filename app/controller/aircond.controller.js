@@ -152,7 +152,10 @@ exports.getWillMount = (req,res,next) =>{
     id_profile = req.params.idProfile;
     var arrData = []
 
-    Latest.findAll({attributes : ['id','var_name','unit','value','category'], where : {id_profile : req.params.idProfile}})
+    Latest.findAll({attributes : ['id','var_name','unit','value','category'], 
+    where : {id_profile : req.params.idProfile,
+        read_this : { [Op.gt]: 0 }
+        }})
             .then(datas => {
                 Promise.all(datas.map( data => {
                     arrData.push(
