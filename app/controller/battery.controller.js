@@ -182,7 +182,7 @@ exports.findById = (req,res,next) => {
         var profile = profiles;
         Protocol.findOne( {attributes : ['protocolSetting'],where : {id_profile : id}}).then(protocols => {
             var protocol = JSON.parse(protocols.protocolSetting);
-            Latest.findAll({attributes : ['id','var_name','unit','read_this','write_this'], where : {id_profile : req.params.profileId}})
+            Latest.findAll({ where : {id_profile : req.params.profileId}})
             .then(latests => {
                 jsonmodel.set(profile,protocol,latests);
                 res.status(200).send(jsonmodel.get())
