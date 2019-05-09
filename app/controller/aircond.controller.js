@@ -8,6 +8,7 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const io = require('../../socketio');
 const jsonmodel = require('../model/aircond/jsonmodel.js');
+const socketroom = "aircond_room"
 
 //OK
 exports.create = (req, res, next) => {
@@ -52,7 +53,7 @@ exports.updatelatest = (req,res,next) => {
                 }
         })}))
         .then( () => {
-            io.getIO().emit("aircond_data",req.body.newValue)
+            io.getIO().in(socketroom).emit("aircond_data",req.body.newValue)
             Log.create({
                 id_profile : req.params.id_profile,
                 data : JSON.stringify(req.body.newValue)
@@ -172,7 +173,7 @@ exports.getWillMount = (req,res,next) =>{
                 )
                 )
                 .then(()=>{
-                    io.getIO().emit("aircond_data",arrData)
+                    io.getIO().in(socketroom).emit("aircond_data",arrData)
                     arrData = [];
                     res.send("Up to Date");
                 })

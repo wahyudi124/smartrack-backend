@@ -70,7 +70,13 @@ var server = app.listen(5005, function () {
 const io = require('./socketio.js').init(server);
   console.log('Test');
 io.on('connection', socket => {
-    console.log('Client Connected');
+    socket.on('join_room', room =>{
+      socket.join(room)
+    })
+
+    socket.on('leave_room', room =>{
+      socket.leave(room)
+    })
 })
 
 // console.log('Test');
