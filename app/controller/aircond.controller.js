@@ -173,9 +173,9 @@ exports.getWillMount = (req,res,next) =>{
                 )
                 )
                 .then(()=>{
-                    io.getIO().in(socketroom).emit("aircond_data",arrData)
+                    // io.getIO().in(socketroom).emit("aircond_data",arrData)
+                    res.code(200).send(arrData);
                     arrData = [];
-                    res.send("Up to Date");
                 })
             })
 }

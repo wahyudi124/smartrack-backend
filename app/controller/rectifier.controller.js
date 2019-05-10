@@ -103,9 +103,11 @@ exports.getWillMount = (req,res,next) =>{
                 )
                 )
                 .then(()=>{
-                    io.getIO().in(socketroom).emit("rectifier_data",arrData)
+                    // io.getIO().in(socketroom).emit("rectifier_data",arrData)
+                    // arrData = [];
+                    // res.send("Up to Date");
+                    res.code(200).send(arrData);
                     arrData = [];
-                    res.send("Up to Date");
                 })
             })
 }
