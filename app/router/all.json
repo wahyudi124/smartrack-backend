@@ -1,0 +1,1 @@
+{"Role":["{\"conditions\":{\"all\":[{\"fact\":\"volt\",\"operator\":\"greaterThanInclusive\",\"value\":\"23\",\"value2\":\"\"},{\"fact\":\"volt\",\"operator\":\"greaterThanInclusive\",\"value\":\"23\",\"value2\":\"\"}]},\"event\":{\"type\":\"1\",\"params\":{\"message\":\"Player has fouled out!\",\"action_id\":12}}}"]}

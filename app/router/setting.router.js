@@ -25,9 +25,9 @@ module.exports = function(app){
 
 
     //HMI SECURITY
-    app.get('/api/settings/getHMI', setting.findAllHMI);
-    app.post('/api/settings/createHMI',setting.createHMI);
-    app.patch('/api/settings/editHMI',setting.updateHMI);
+    app.get('/api/settings/HMI', setting.findAllHMI);
+    app.post('/api/settings/HMI',setting.createHMI);
+    app.patch('/api/settings/HMI',setting.updateHMI);
 
 
     //time
