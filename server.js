@@ -77,6 +77,11 @@ io.on('connection', socket => {
     socket.on('leave_room', room =>{
       socket.leave(room)
     })
+
+    socket.on('rectifier_in_data', data =>{
+      io.in('rectifier_room').emit(data.newValue)
+    })
+    console.log(socket.id)
 })
 
 // console.log('Test');
