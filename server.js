@@ -79,7 +79,7 @@ io.on('connection', socket => {
     })
 
     socket.on('rectifier_in_data', data =>{
-      io.in('rectifier_room').emit('rectifier_data',data.newValue)
+      io.emit('rectifier_data',data.newValue)
     })
     console.log(socket.id)
 })
