@@ -8,7 +8,9 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const io = require('../../socketio');
 const jsonmodel = require('../model/pdu/jsonmodel.js');
+const socketroom = "pdu_room"
 
+let increment = 0;
 //OK
 exports.create = (req, res, next) => {
    
@@ -34,15 +36,22 @@ exports.create = (req, res, next) => {
                     var_name    : item.var_name,
                     id_profile  : data.id,
                     unit        : item.unit,
+                    category    : item.category,
                     read_this   : item.read_this,
                     write_this  : item.write_this,
                 })
             }))
-            .then(res.send("PDU Profile Create"));
+            .then(res.send("pdu Profile Create"));
         })
 }
 
 exports.updatelatest = (req,res,next) => {
+
+    if(increment == 0 ){
+        io.getIO().in(socketroom).emit("rectifier_data",req.body.newValue)
+        increment = increment + 1;
+    }
+    else if( increment >= 100){
 
     Promise.all(req.body.newValue.map(data => {
         Latest.update({value : data.value},
@@ -51,7 +60,7 @@ exports.updatelatest = (req,res,next) => {
                 }
         })}))
         .then( () => {
-            io.getIO().emit("pdu_data",req.body.newValue)
+            io.getIO().in(socketroom).emit("rectifier_data",req.body.newValue)
             Log.create({
                 id_profile : req.params.id_profile,
                 data : JSON.stringify(req.body.newValue)
@@ -62,6 +71,9 @@ exports.updatelatest = (req,res,next) => {
         .catch( err => {
             res.status(404).send({'message': err});
         })
+
+        increment = 0; 
+    }
 }
 
 exports.getAllManufaturer = (req,res,next) => {
@@ -146,13 +158,47 @@ exports.findAll = (req,res,next) => {
     })
 }
 
+exports.getWillMount = (req,res,next) =>{
+    id_profile = req.params.idProfile;
+    var arrData = []
+
+    Latest.findAll({attributes : ['id','var_name','unit','value','category'], 
+                    where : {id_profile : req.params.idProfile,
+                             read_this : { [Op.gt]: 0 }
+                      }})
+            .then(datas => {
+                Promise.all(datas.map( data => {
+                    arrData.push(
+                        {
+                            "var_name" : data.var_name,
+                            "value"    : data.value,
+                            "unit"     : data.unit,
+                            "category"      : data.category,
+                            "id_profile"    : id_profile
+                        }
+                    )
+                }
+                    
+                )
+                )
+                .then(()=>{
+                    // io.getIO().in(socketroom).emit("pdu_data",arrData)
+                    // arrData = [];
+                    // res.send("Up to Date");
+                    res.status(200).send(arrData);
+                    arrData = [];
+                })
+            })
+}
+
+
 exports.findById = (req,res,next) => {
     var id = req.params.profileId;
     Profile.findOne({where : {id : id}}).then(profiles => {
         var profile = profiles;
         Protocol.findOne( {attributes : ['protocolSetting'],where : {id_profile : id}}).then(protocols => {
             var protocol = JSON.parse(protocols.protocolSetting);
-            Latest.findAll({attributes : ['id','var_name','unit','read_this','write_this'], where : {id_profile : req.params.profileId}})
+            Latest.findAll({where : {id_profile : req.params.profileId}})
             .then(latests => {
                 jsonmodel.set(profile,protocol,latests);
                 res.status(200).send(jsonmodel.get())
@@ -161,7 +207,7 @@ exports.findById = (req,res,next) => {
                 {
                     "request" : {
                         "type" : "POST",
-                        "url" : "http://localhost:5005/api/ups/profile/"+id,
+                        "url" : "http://localhost:5005/api/pdu/profile/"+id,
                         "message" : "Profile Not Found With ID = " + id
                     }})
         })
@@ -170,7 +216,7 @@ exports.findById = (req,res,next) => {
             {
                 "request" : {
                     "type" : "POST",
-                    "url" : "http://localhost:5005/api/ups/profile/"+id,
+                    "url" : "http://localhost:5005/api/pdu/profile/"+id,
                     "message" : "Profile Not Found With ID = " + id
                 }})
     })
@@ -180,7 +226,7 @@ exports.findById = (req,res,next) => {
             {
                 "request" : {
                     "type" : "POST",
-                    "url" : "http://localhost:5005/api/ups/profile/"+id,
+                    "url" : "http://localhost:5005/api/pdu/profile/"+id,
                     "message" : "Profile Not Found With ID = " + id
                 }})
     })

@@ -9,6 +9,8 @@ const Op = Sequelize.Op;
 const io = require('../../socketio');
 const jsonmodel = require('../model/ups/jsonmodel.js');
 const socketroom = "ups_room"
+
+let increment = 0;
 //OK
 exports.create = (req, res, next) => {
    
@@ -45,6 +47,13 @@ exports.create = (req, res, next) => {
 
 exports.updatelatest = (req,res,next) => {
 
+    if(increment == 0 ){
+        io.getIO().in(socketroom).emit("ups_data",req.body.newValue)
+        res.status(200).send('Sucessfull Update And Log');
+        increment = increment + 1;
+    }
+    else if( increment >= 100){
+
     Promise.all(req.body.newValue.map(data => {
         Latest.update({value : data.value},
         {where : {id_profile : req.params.profileId,
@@ -52,7 +61,7 @@ exports.updatelatest = (req,res,next) => {
                 }
         })}))
         .then( () => {
-            io.getIO().in(socketroom).emit("rectifier_data",req.body.newValue)
+            io.getIO().in(socketroom).emit("ups_data",req.body.newValue)
             Log.create({
                 id_profile : req.params.id_profile,
                 data : JSON.stringify(req.body.newValue)
@@ -63,6 +72,8 @@ exports.updatelatest = (req,res,next) => {
         .catch( err => {
             res.status(404).send({'message': err});
         })
+        increment = 0;
+    }
 }
 
 exports.getAllManufaturer = (req,res,next) => {
