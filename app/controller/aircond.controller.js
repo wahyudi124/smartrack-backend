@@ -48,7 +48,7 @@ exports.create = (req, res, next) => {
 
 exports.updatelatest = (req,res,next) => {
 
-    if(increment < 100 ){
+    if(increment <= 100 ){
         io.getIO().in(socketroom).emit("aircond_data",req.body.newValue)
         res.status(200).send('Sucessfull Update And Log');
         increment = increment + 1;

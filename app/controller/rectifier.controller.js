@@ -48,12 +48,12 @@ exports.create = (req, res, next) => {
 
 exports.updatelatest = (req,res,next) => {
 
-    if(increment < 100 ){
+    if(increment <= 100 ){
         io.getIO().in(socketroom).emit("rectifier_data",req.body.newValue)
         res.status(200).send('Sucessfull Update And Log');
         increment = increment + 1;
     }
-    else if( increment >= 100){
+    else if( increment >= 101){
 
     Promise.all(req.body.newValue.map(data => {
         Latest.update({value : data.value},
