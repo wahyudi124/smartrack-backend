@@ -67,22 +67,22 @@ var server = app.listen(5005, function () {
   console.log("App listening at http://%s:%s", host, port)
 })
 
-const io = require('./socketio.js').init(server);
-  console.log('Test');
-io.on('connection', socket => {
-    socket.on('join_room', room =>{
-      socket.join(room)
-    })
+// const io = require('./socketio.js').init(server);
+//   console.log('Test');
+// io.on('connection', socket => {
+//     socket.on('join_room', room =>{
+//       socket.join(room)
+//     })
 
-    socket.on('leave_room', room =>{
-      socket.leave(room)
-    })
+//     socket.on('leave_room', room =>{
+//       socket.leave(room)
+//     })
 
-    socket.on('rectifier_in_data', data =>{
-      io.emit('rectifier_data',data.newValue)
-    })
-    console.log(socket.id)
-})
+//     socket.on('rectifier_in_data', data =>{
+//       io.emit('rectifier_data',data.newValue)
+//     })
+//     console.log(socket.id)
+// })
 
 // console.log('Test');
 
