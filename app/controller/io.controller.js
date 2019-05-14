@@ -5,7 +5,7 @@ const TimeSeries = db.io_timeseries;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const Log = db.io_timeseries;
-const io = require('../../socketio');
+// const io = require('../../socketio');
 
 exports.create = (req, res, next) => {
     Profile.create({
