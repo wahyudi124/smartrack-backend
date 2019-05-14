@@ -18,7 +18,7 @@ module.exports = function(app){
     // app.patch('/api/rectifier/dashboard/:profileId', rectifier.DashboardControl);
 
     // //Get Monitor rectifier By Firmware
-    app.patch('/api/rectifier/updatevalue/:profileId',rectifier.updatelatest);
+    // app.patch('/api/rectifier/updatevalue/:profileId',rectifier.updatelatest);
 
     app.get('/api/rectifier/dashboard/:idProfile',rectifier.getWillMount);
 

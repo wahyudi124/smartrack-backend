@@ -18,6 +18,6 @@ module.exports = function(app){
     app.get('/api/sensor/dashboard/:page',sensor.Dashboard);
 
     //Firmware update data
-    app.patch('/api/sensor/updatevalue',sensor.updateValue);
+    //app.patch('/api/sensor/updatevalue',sensor.updateValue);
 
 }
