@@ -3,7 +3,7 @@ const Profile = db.sensor_profile;
 const Latest = db.sensor_latest;
 const Library = db.sensor_library;
 const Log = db.sensor_timeseries;
-const io = require('../../socketio');
+//const io = require('../../socketio');
 
 
 
@@ -106,22 +106,22 @@ exports.update = (req, res,next) => {
     })
 };
 
-exports.updateValue = (req,res,next) => {
-    Promise.all(req.body.newValue.map(data => {
-        Latest.update({ value : data.value },
-                      { where : {id : data.id}})
-    }))
-    .then(()=>{
-        res.status(200).send('OK');
-        io.getIO().emit('sensor_latest',req.body);
-        Log.create({
-            data : JSON.stringify(req.body),
-        })
-    })
-    .catch(()=>{
-        res.status(404).send({'message': err});
-    })
-}
+// exports.updateValue = (req,res,next) => {
+//     Promise.all(req.body.newValue.map(data => {
+//         Latest.update({ value : data.value },
+//                       { where : {id : data.id}})
+//     }))
+//     .then(()=>{
+//         res.status(200).send('OK');
+//         io.getIO().emit('sensor_latest',req.body);
+//         Log.create({
+//             data : JSON.stringify(req.body),
+//         })
+//     })
+//     .catch(()=>{
+//         res.status(404).send({'message': err});
+//     })
+// }
 
 exports.delete = (req, res,next) => {
     const id = req.params.profileId;

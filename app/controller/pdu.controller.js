@@ -6,9 +6,9 @@ const Library = db.pdu_library;
 const Protocol = db.pdu_protocol;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-const io = require('../../socketio');
+// const io = require('../../socketio');
 const jsonmodel = require('../model/pdu/jsonmodel.js');
-const socketroom = "pdu_room"
+// const socketroom = "pdu_room"
 
 let increment = 0;
 //OK
@@ -45,36 +45,36 @@ exports.create = (req, res, next) => {
         })
 }
 
-exports.updatelatest = (req,res,next) => {
+// exports.updatelatest = (req,res,next) => {
 
-    if(increment == 0 ){
-        io.getIO().in(socketroom).emit("rectifier_data",req.body.newValue)
-        increment = increment + 1;
-    }
-    else if( increment >= 100){
+//     if(increment == 0 ){
+//         io.getIO().in(socketroom).emit("rectifier_data",req.body.newValue)
+//         increment = increment + 1;
+//     }
+//     else if( increment >= 100){
 
-    Promise.all(req.body.newValue.map(data => {
-        Latest.update({value : data.value},
-        {where : {id_profile : req.params.profileId,
-                 var_name : data.var_name
-                }
-        })}))
-        .then( () => {
-            io.getIO().in(socketroom).emit("rectifier_data",req.body.newValue)
-            Log.create({
-                id_profile : req.params.id_profile,
-                data : JSON.stringify(req.body.newValue)
-            }).then( () => {
-                res.status(200).send('Sucessfull Update And Log');
-            })
-        })
-        .catch( err => {
-            res.status(404).send({'message': err});
-        })
+//     Promise.all(req.body.newValue.map(data => {
+//         Latest.update({value : data.value},
+//         {where : {id_profile : req.params.profileId,
+//                  var_name : data.var_name
+//                 }
+//         })}))
+//         .then( () => {
+//             io.getIO().in(socketroom).emit("rectifier_data",req.body.newValue)
+//             Log.create({
+//                 id_profile : req.params.id_profile,
+//                 data : JSON.stringify(req.body.newValue)
+//             }).then( () => {
+//                 res.status(200).send('Sucessfull Update And Log');
+//             })
+//         })
+//         .catch( err => {
+//             res.status(404).send({'message': err});
+//         })
 
-        increment = 0; 
-    }
-}
+//         increment = 0; 
+//     }
+// }
 
 exports.getAllManufaturer = (req,res,next) => {
     Library.findAll({
