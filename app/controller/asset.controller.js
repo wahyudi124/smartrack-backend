@@ -3,7 +3,7 @@ const Asset = db.asset;
 const Sequelize = require('sequelize');
 const OP = Sequelize.Op;
 
-const io = require('../../socketio');
+// const io = require('../../socketio');
 
 exports.create =(req, res, next) => {
     Asset.create({
