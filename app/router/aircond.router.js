@@ -18,7 +18,7 @@ module.exports = function(app){
     // app.patch('/api/rectifier/dashboard/:profileId', rectifier.DashboardControl);
 
     // //Get Monitor rectifier By Firmware
-    app.patch('/api/aircond/updatevalue/:profileId',aircond.updatelatest);
+    // app.patch('/api/aircond/updatevalue/:profileId',aircond.updatelatest);
 
     app.post('/api/aircond/library',aircond.addLibrary);
 
