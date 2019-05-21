@@ -6,7 +6,7 @@ const Library = db.rectifier_library;
 const Protocol = db.rectifier_protocol;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-const io = require('../../socketio');
+// const io = require('../../');
 const jsonmodel = require('../model/rectifier/jsonmodel.js');
 const socketroom = "rectifier_room";
 
@@ -68,36 +68,36 @@ exports.create = (req, res, next) => {
         })
 }
 
-exports.updatelatest = (req,res,next) => {
+// exports.updatelatest = (req,res,next) => {
 
-    if(increment <= 100 ){
-        io.getIO().in(socketroom).emit("rectifier_data",req.body.newValue)
-        res.status(200).send('Sucessfull Update And Log');
-        increment = increment + 1;
-    }
-    else if( increment >= 101){
+//     if(increment <= 100 ){
+//         io.getIO().in(socketroom).emit("rectifier_data",req.body.newValue)
+//         res.status(200).send('Sucessfull Update And Log');
+//         increment = increment + 1;
+//     }
+//     else if( increment >= 101){
 
-    Promise.all(req.body.newValue.map(data => {
-        Latest.update({value : data.value},
-        {where : {id_profile : req.params.profileId,
-                 var_name : data.var_name
-                }
-        })}))
-        .then( () => {
-            io.getIO().in(socketroom).emit("rectifier_data",req.body.newValue)
-            Log.create({
-                id_profile : req.params.id_profile,
-                data : JSON.stringify(req.body.newValue)
-            }).then( () => {
-                res.status(200).send('Sucessfull Update And Log');
-            })
-        })
-        .catch( err => {
-            res.status(404).send({'message': err});
-        })
-        increment = 0;
-    }
-}
+//     Promise.all(req.body.newValue.map(data => {
+//         Latest.update({value : data.value},
+//         {where : {id_profile : req.params.profileId,
+//                  var_name : data.var_name
+//                 }
+//         })}))
+//         .then( () => {
+//             io.getIO().in(socketroom).emit("rectifier_data",req.body.newValue)
+//             Log.create({
+//                 id_profile : req.params.id_profile,
+//                 data : JSON.stringify(req.body.newValue)
+//             }).then( () => {
+//                 res.status(200).send('Sucessfull Update And Log');
+//             })
+//         })
+//         .catch( err => {
+//             res.status(404).send({'message': err});
+//         })
+//         increment = 0;
+//     }
+// }
 
 exports.getAllManufaturer = (req,res,next) => {
     Library.findAll({
