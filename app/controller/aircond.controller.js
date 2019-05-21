@@ -6,11 +6,14 @@ const Library = db.aircond_library;
 const Protocol = db.aircond_protocol;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-// const io = require('../../socketio');
+const io = require('../../socketio');
 const jsonmodel = require('../model/aircond/jsonmodel.js');
-// const socketroom = "aircond_room"
+const socketroom = "aircond_room"
 
 let increment = 0;
+
+
+const csv = db.ups_report;
 
 //OK
 exports.create = (req, res, next) => {
@@ -42,41 +45,60 @@ exports.create = (req, res, next) => {
                     write_this  : item.write_this,
                 })
             }))
-            .then(res.send("Aircond Profile Create"));
+            .then(()=>{
+                res.send("Aircond Profile Create")
+                var newVAlue = []
+
+                req.body.available_data.map(d => {
+                    newVAlue.push({
+                        var_name : d.var_name,
+                        unit: d.unit,
+                        category: d.category
+                    })
+                })
+
+                console.log(newVAlue)
+                csv.create({
+                    id_profile: data.id,
+                    data: JSON.stringify(newVAlue)
+                }).then(()=>{
+                    console.log("New coloumm created!!!")
+                })
+            });
         })
 }
 
-// exports.updatelatest = (req,res,next) => {
+exports.updatelatest = (req,res,next) => {
 
-//     if(increment <= 100 ){
-//         io.getIO().in(socketroom).emit("aircond_data",req.body.newValue)
-//         res.status(200).send('Sucessfull Update And Log');
-//         increment = increment + 1;
-//     }
-//     else if(increment >= 100) {
+    if(increment <= 100 ){
+        io.getIO().in(socketroom).emit("aircond_data",req.body.newValue)
+        res.status(200).send('Sucessfull Update And Log');
+        increment = increment + 1;
+    }
+    else if(increment >= 100) {
 
-//     Promise.all(req.body.newValue.map(data => {
-//         Latest.update({value : data.value},
-//         {where : {id_profile : req.params.profileId,
-//                  var_name : data.var_name
-//                 }
-//         })}))
-//         .then( () => {
-//             io.getIO().in(socketroom).emit("aircond_data",req.body.newValue)
-//             Log.create({
-//                 id_profile : req.params.id_profile,
-//                 data : JSON.stringify(req.body.newValue)
-//             }).then( () => {
-//                 res.status(200).send('Sucessfull Update And Log');
-//             })
-//         })
-//         .catch( err => {
-//             res.status(404).send({'message': err});
-//         })
+    Promise.all(req.body.newValue.map(data => {
+        Latest.update({value : data.value},
+        {where : {id_profile : req.params.profileId,
+                 var_name : data.var_name
+                }
+        })}))
+        .then( () => {
+            io.getIO().in(socketroom).emit("aircond_data",req.body.newValue)
+            Log.create({
+                id_profile : req.params.id_profile,
+                data : JSON.stringify(req.body.newValue)
+            }).then( () => {
+                res.status(200).send('Sucessfull Update And Log');
+            })
+        })
+        .catch( err => {
+            res.status(404).send({'message': err});
+        })
 
-//         increment = 0;
-//     }
-// }
+        increment = 0;
+    }
+}
 
 exports.getAllManufaturer = (req,res,next) => {
     Library.findAll({

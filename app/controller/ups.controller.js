@@ -11,6 +11,9 @@ const jsonmodel = require('../model/ups/jsonmodel.js');
 // const socketroom = "ups_room"
 
 let increment = 0;
+
+const csv = db.ups_report;
+
 //OK
 exports.create = (req, res, next) => {
    
@@ -41,7 +44,26 @@ exports.create = (req, res, next) => {
                     write_this  : item.write_this,
                 })
             }))
-            .then(res.send("UPS Profile Create"));
+            .then(()=>{
+                res.send("UPS Profile Create")
+                var newVAlue = []
+
+                req.body.available_data.map(d => {
+                    newVAlue.push({
+                        var_name : d.var_name,
+                        unit: d.unit,
+                        category: d.category
+                    })
+                })
+
+                console.log(newVAlue)
+                csv.create({
+                    id_profile: data.id,
+                    data: JSON.stringify(newVAlue)
+                }).then(()=>{
+                    console.log("New coloumm created!!!")
+                })
+            });
         })
 }
 
