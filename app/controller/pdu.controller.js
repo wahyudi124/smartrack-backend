@@ -305,7 +305,7 @@ exports.update = (req, res,next) => {
 exports.outlet = (req, res, next)=>{
     var id = req.body.id_profile;
     var value = req.body.value;
-    var var_name = req.body.value;
+    var var_name = req.body.var_name;
 
     var python = require('python-shell');
     
