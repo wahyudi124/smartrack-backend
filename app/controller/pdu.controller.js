@@ -311,9 +311,9 @@ exports.outlet = (req, res, next)=>{
     
     let options = {
         mode: 'text',
-        // pythonPath: 'path/to/python',
+        // pythonPath: 'app/controller/',
         // pythonOptions: ['-u'], // get print results in real-time
-        // scriptPath: 'path/to/my/scripts',
+        scriptPath: 'app/controller/',
         rgs: ['--eq_type', 'PDU', '--eq_id', '1', '--varname', 'outlet_1_status', '--value', '1']
     };
 
@@ -341,7 +341,7 @@ exports.outlet2 = (req, res, next)=>{
         mode: 'text',
         // pythonPath: 'path/to/python',
         // pythonOptions: ['-u'], // get print results in real-time
-        // scriptPath: 'path/to/my/scripts',
+        scriptPath: 'app/controller/',
         args: ['--id', id, '--Type', Type ,'--Port', port  , '--Value', value]
     };
 
