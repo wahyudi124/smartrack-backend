@@ -314,7 +314,7 @@ exports.outlet = (req, res, next)=>{
         // pythonPath: 'app/controller/',
         // pythonOptions: ['-u'], // get print results in real-time
         scriptPath: 'app/controller/',
-        rgs: ['--eq_type', 'PDU', '--eq_id', '1', '--varname', 'outlet_1_status', '--value', '1']
+        args: ['--eq_type', 'PDU', '--eq_id', id, '--varname', var_name, '--value', value]
     };
 
     python.PythonShell.run('Control_Equipment.py', options, function (err, data) {
@@ -322,6 +322,19 @@ exports.outlet = (req, res, next)=>{
         console.log(data);
 
         res.status(200).send("OK "+ data)
+
+        
+        if(data == 1){
+            Latest.update({
+                value: value
+            },{
+                where: {id: id, var_name: var_name}
+            }).then(()=>{
+                console.log("Value updated "+ data)
+            })
+        }
+
+
     });
 
     
@@ -350,6 +363,7 @@ exports.outlet2 = (req, res, next)=>{
         console.log(data);
 
         res.status(200).send("OK "+ data)
+
     });
 
     

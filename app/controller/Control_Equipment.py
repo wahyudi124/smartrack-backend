@@ -19,8 +19,10 @@ def main(args):
         value = args.value
 
         write(eq_type, eq_id, varname, value)
+
     except:
-        print(-1)
+        # print(-1)
+        raise
 
 
 if __name__ == '__main__':

@@ -25,14 +25,14 @@ let options = {
   // pythonPath: 'path/to/python',
   // pythonOptions: ['-u'], // get print results in real-time
   // scriptPath: 'path/to/my/scripts',
-  // args: ['--id', '3', '--Type', 'AO' ,'--Port', '5'  , '--Value', '4.9']
-  args: ['--eq_type', 'PDU', '--eq_id', '1', '--varname', 'outlet_1_status', '--value', '1']
+  args: ['--id', '3', '--Type', 'AO' ,'--Port', '5'  , '--Value', '4.9']
+  // args: ['--eq_type', 'PDU', '--eq_id', '1', '--varname', 'outlet_1_status', '--value', '1']
 
 };
 
 
 
-python.PythonShell.run('Control_Equipment.py', options, function (err, data) {
+python.PythonShell.run('Control_IO_testing.py', options, function (err, data) {
     if (err) throw err;
     console.log(data);
 });

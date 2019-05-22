@@ -6,7 +6,7 @@ ParentFolder = os.path.abspath('..')
 
 # Write function
 def write(id, Type, Port, Value):
-    print(random.choice([1, -1]))
+    print(random.choice([1, 4, -1]))
 
 # Main Function
 def main(args):
