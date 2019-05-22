@@ -11,6 +11,10 @@ const jsonmodel = require('../model/pdu/jsonmodel.js');
 // const socketroom = "pdu_room"
 
 let increment = 0;
+
+
+
+
 //OK
 exports.create = (req, res, next) => {
    
@@ -296,4 +300,31 @@ exports.update = (req, res,next) => {
                 })
              });
 };
+
+
+exports.outlet = (req, res, next)=>{
+    var id = req.body.id_profile,
+    var value = req.body.value,
+    var var_name = req.body.value,
+
+    var python = require('python-shell');
+    
+    let options = {
+        mode: 'text',
+        // pythonPath: 'path/to/python',
+        // pythonOptions: ['-u'], // get print results in real-time
+        // scriptPath: 'path/to/my/scripts',
+        args: ['--id', '3', '--Type', 'AO' ,'--Port', '5'  , '--Value', '4.9']
+    };
+
+    python.PythonShell.run('Control_IO_testing.py', options, function (err, data) {
+        if (err) throw err;
+        console.log(data);
+
+        res.status(200).send("OK "+ data)
+    });
+
+    
+
+}
 

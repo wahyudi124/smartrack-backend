@@ -12,6 +12,10 @@ module.exports = function(app){
 
     app.delete('/api/pdu/profile/:profileId',pdu.delete);
 
+
+
+    app.post('/api/pdu/outlet', pdu.outlet);
+
     // //Dashboard rectifier Router
     // app.get('/api/rectifier/dashboard/:page',rectifier.Dashboard);
 
