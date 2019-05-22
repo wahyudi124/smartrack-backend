@@ -303,9 +303,9 @@ exports.update = (req, res,next) => {
 
 
 exports.outlet = (req, res, next)=>{
-    var id = req.body.id_profile,
-    var value = req.body.value,
-    var var_name = req.body.value,
+    var id = req.body.id_profile;
+    var value = req.body.value;
+    var var_name = req.body.value;
 
     var python = require('python-shell');
     
@@ -314,7 +314,35 @@ exports.outlet = (req, res, next)=>{
         // pythonPath: 'path/to/python',
         // pythonOptions: ['-u'], // get print results in real-time
         // scriptPath: 'path/to/my/scripts',
-        args: ['--id', '3', '--Type', 'AO' ,'--Port', '5'  , '--Value', '4.9']
+        rgs: ['--eq_type', 'PDU', '--eq_id', '1', '--varname', 'outlet_1_status', '--value', '1']
+    };
+
+    python.PythonShell.run('Control_Equipment.py', options, function (err, data) {
+        if (err) throw err;
+        console.log(data);
+
+        res.status(200).send("OK "+ data)
+    });
+
+    
+
+}
+
+
+exports.outlet2 = (req, res, next)=>{
+    var id = req.body.id_profile;
+    var value = req.body.value;
+    var Type = req.body.type;
+    var port = req.body.port;
+
+    var python = require('python-shell');
+    
+    let options = {
+        mode: 'text',
+        // pythonPath: 'path/to/python',
+        // pythonOptions: ['-u'], // get print results in real-time
+        // scriptPath: 'path/to/my/scripts',
+        args: ['--id', id, '--Type', Type ,'--Port', port  , '--Value', value]
     };
 
     python.PythonShell.run('Control_IO_testing.py', options, function (err, data) {
@@ -327,4 +355,3 @@ exports.outlet = (req, res, next)=>{
     
 
 }
-

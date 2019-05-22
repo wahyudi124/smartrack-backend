@@ -15,6 +15,7 @@ module.exports = function(app){
 
 
     app.post('/api/pdu/outlet', pdu.outlet);
+    app.post('/api/pdu/outlet2', pdu.outlet2);
 
     // //Dashboard rectifier Router
     // app.get('/api/rectifier/dashboard/:page',rectifier.Dashboard);
