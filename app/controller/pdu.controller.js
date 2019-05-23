@@ -313,7 +313,7 @@ exports.outlet = (req, res, next)=>{
         mode: 'text',
         // pythonPath: 'app/controller/',
         // pythonOptions: ['-u'], // get print results in real-time
-        scriptPath: 'app/controller/',
+        scriptPath: 'app/controller/dummy_pdu_1',
         args: ['--eq_type', 'PDU', '--eq_id', id, '--varname', var_name, '--value', value]
     };
 
@@ -328,7 +328,7 @@ exports.outlet = (req, res, next)=>{
             Latest.update({
                 value: value
             },{
-                where: {id: id, var_name: var_name}
+                where: {id_profile: id, var_name: var_name}
             }).then(()=>{
                 console.log("Value updated "+ data)
             })
@@ -354,11 +354,11 @@ exports.outlet2 = (req, res, next)=>{
         mode: 'text',
         // pythonPath: 'path/to/python',
         // pythonOptions: ['-u'], // get print results in real-time
-        scriptPath: 'app/controller/',
+        scriptPath: 'app/controller/dummy_pdu_1',
         args: ['--id', id, '--Type', Type ,'--Port', port  , '--Value', value]
     };
 
-    python.PythonShell.run('Control_IO_testing.py', options, function (err, data) {
+    python.PythonShell.run('Control_IO.py', options, function (err, data) {
         if (err) throw err;
         console.log(data);
 
