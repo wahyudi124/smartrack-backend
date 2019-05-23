@@ -7,7 +7,7 @@
             "unit": "V",
             "category": "INLET",
             "id_profile": 1,
-            "value": 25.36
+            "value": 92.38
         },
         {
             "var_name": "inlet_current",
@@ -16,7 +16,7 @@
             "unit": "A",
             "category": "INLET",
             "id_profile": 1,
-            "value": 51.47
+            "value": 98.16
         },
         {
             "var_name": "inlet_power",
@@ -25,7 +25,7 @@
             "unit": "W",
             "category": "INLET",
             "id_profile": 1,
-            "value": 0.76
+            "value": 62.49
         },
         {
             "var_name": "temperature",
@@ -34,7 +34,7 @@
             "unit": "C",
             "category": "ENVIRONMENT",
             "id_profile": 1,
-            "value": 12.62
+            "value": 61.03
         },
         {
             "var_name": "humidity",
@@ -43,7 +43,7 @@
             "unit": "%",
             "category": "ENVIRONMENT",
             "id_profile": 1,
-            "value": 63.3
+            "value": 58.15
         },
         {
             "var_name": "outlet_1_voltage",
@@ -53,7 +53,7 @@
             "category": "OUTLET_VOLTAGE",
             "outlet_id": 1,
             "id_profile": 1,
-            "value": 37.62
+            "value": 14.18
         },
         {
             "var_name": "outlet_1_current",
@@ -63,7 +63,7 @@
             "category": "OUTLET_CURRENT",
             "outlet_id": 1,
             "id_profile": 1,
-            "value": 32.79
+            "value": 64.93
         },
         {
             "var_name": "outlet_1_power",
@@ -73,7 +73,7 @@
             "category": "OUTLET_POWER",
             "outlet_id": 1,
             "id_profile": 1,
-            "value": 30.29
+            "value": 78.08
         },
         {
             "var_name": "outlet_1_status",
@@ -93,7 +93,7 @@
             "category": "OUTLET_VOLTAGE",
             "outlet_id": 2,
             "id_profile": 1,
-            "value": 52.27
+            "value": 78.61
         },
         {
             "var_name": "outlet_2_current",
@@ -103,7 +103,7 @@
             "category": "OUTLET_CURRENT",
             "outlet_id": 2,
             "id_profile": 1,
-            "value": 48.76
+            "value": 95.22
         },
         {
             "var_name": "outlet_2_power",
@@ -113,7 +113,7 @@
             "category": "OUTLET_POWER",
             "outlet_id": 2,
             "id_profile": 1,
-            "value": 64.25
+            "value": 15.1
         },
         {
             "var_name": "outlet_2_status",
@@ -133,7 +133,7 @@
             "category": "OUTLET_VOLTAGE",
             "outlet_id": 3,
             "id_profile": 1,
-            "value": 8.66
+            "value": 64.54
         },
         {
             "var_name": "outlet_3_current",
@@ -143,7 +143,7 @@
             "category": "OUTLET_CURRENT",
             "outlet_id": 3,
             "id_profile": 1,
-            "value": 30.59
+            "value": 12.2
         },
         {
             "var_name": "outlet_3_power",
@@ -153,7 +153,7 @@
             "category": "OUTLET_POWER",
             "outlet_id": 3,
             "id_profile": 1,
-            "value": 47.24
+            "value": 44.49
         },
         {
             "var_name": "outlet_3_status",
@@ -173,7 +173,7 @@
             "category": "OUTLET_VOLTAGE",
             "outlet_id": 4,
             "id_profile": 1,
-            "value": 41.44
+            "value": 8.01
         },
         {
             "var_name": "outlet_4_current",
@@ -183,7 +183,7 @@
             "category": "OUTLET_CURRENT",
             "outlet_id": 4,
             "id_profile": 1,
-            "value": 87.03
+            "value": 57.21
         },
         {
             "var_name": "outlet_4_power",
@@ -193,7 +193,7 @@
             "category": "OUTLET_POWER",
             "outlet_id": 4,
             "id_profile": 1,
-            "value": 96.24
+            "value": 97.92
         },
         {
             "var_name": "outlet_4_status",
@@ -213,7 +213,7 @@
             "category": "OUTLET_VOLTAGE",
             "outlet_id": 5,
             "id_profile": 1,
-            "value": 15.67
+            "value": 34.72
         },
         {
             "var_name": "outlet_5_current",
@@ -223,7 +223,7 @@
             "category": "OUTLET_CURRENT",
             "outlet_id": 5,
             "id_profile": 1,
-            "value": 98.79
+            "value": 6.21
         },
         {
             "var_name": "outlet_5_power",
@@ -233,7 +233,7 @@
             "category": "OUTLET_POWER",
             "outlet_id": 5,
             "id_profile": 1,
-            "value": 21.94
+            "value": 67.45
         },
         {
             "var_name": "outlet_5_status",
