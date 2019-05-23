@@ -14,7 +14,7 @@ def write(eq_type, eq_id, varname, value):
     for i, item in enumerate(data["newValue"]):
         if item["var_name"] == varname:
             data["newValue"][i]["value"] = int(value)
-            print(data["newValue"][i])
+            # print(data["newValue"][i])
 
     with open(ThisFolder + '/app/controller/dummy_pdu_1/data/dummy_pdu.json', 'w') as file:
         file.write(json.dumps(data, indent=4))
