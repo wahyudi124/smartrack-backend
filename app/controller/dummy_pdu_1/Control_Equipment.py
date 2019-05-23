@@ -8,8 +8,8 @@ ParentFolder = os.path.abspath('..')
 # Write function
 def write(eq_type, eq_id, varname, value):
     try:
-        #with open(ThisFolder + '/app/controller/dummy_pdu_1/data/dummy_pdu.json') as json_data:
-        with open(ThisFolder + '/data/dummy_pdu.json') as json_data:
+        with open('/home/pi/backendrack/bakend/smartrack-backend/app/controller/dummy_pdu_1/data/dummy_pdu.json') as json_data:
+        #with open('~/backendrack/bakend/smartrack-backend/app/controller/dummy_pdu_1') as json_data:
             data = json.load(json_data)
 
         for i, item in enumerate(data["newValue"]):
@@ -17,26 +17,25 @@ def write(eq_type, eq_id, varname, value):
                 data["newValue"][i]["value"] = int(value)
                 # print(data["newValue"][i])
 
-        #with open(ThisFolder + '/app/controller/dummy_pdu_1/data/dummy_pdu.json', 'w') as file:
-        with open(ThisFolder + '/data/dummy_pdu.json', 'w') as file:
+        with open('/home/pi/backendrack/bakend/smartrack-backend/app/controller/dummy_pdu_1/data/dummy_pdu.json', 'w') as file:
+        #with open('~/backendrack/bakend/smartrack-backend/app/controller/dummy_pdu_1', 'w') as file:
             file.write(json.dumps(data, indent=4))
         print(1)
     except:
-        #raise
+        raise
         print(0)
 
 # Main Function
 def main(args):
     try:
         eq_type = args.eq_type
-        # eq_id = int(args.eq_id)
         eq_id = args.eq_id
         varname = args.varname
         value = args.value
 
         write(eq_type, eq_id, varname, value)
     except:
-        #raise
+        raise
         print(0)
 
 

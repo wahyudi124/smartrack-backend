@@ -326,7 +326,7 @@ exports.outlet = (req, res, next)=>{
         res.status(200).send("OK "+ data)
 
         
-        if(data == 1){
+        if(data == 0){
             Latest.update({
                 value: value
             },{
