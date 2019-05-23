@@ -309,6 +309,8 @@ exports.outlet = (req, res, next)=>{
 
     var python = require('python-shell');
     
+    console.log(id, value, var_name)
+
     let options = {
         mode: 'text',
         // pythonPath: 'app/controller/',
